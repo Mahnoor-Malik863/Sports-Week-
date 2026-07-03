@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Indoor Sports Week</title>
+<title>Ninja Games 2.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -188,6 +188,22 @@
   /* Save notification */
   #save-toast { position:fixed; bottom:24px; right:24px; background:var(--teal); color:var(--navy); font-weight:700; font-size:13px; padding:12px 20px; border-radius:4px; opacity:0; transition:opacity .3s; pointer-events:none; z-index:999; }
   #save-toast.show { opacity:1; }
+  /* CONFLICT PANEL */
+  .conflict-panel { background:rgba(127,29,29,.25); border:1px solid rgba(248,113,113,.3); border-radius:8px; padding:20px 24px; margin-bottom:28px; }
+  .conflict-panel h3 { font-size:14px; font-weight:700; color:#fca5a5; margin-bottom:12px; }
+  .conflict-item { font-size:13px; color:#fca5a5; padding:6px 0; border-bottom:1px solid rgba(248,113,113,.15); }
+  .conflict-item:last-child { border-bottom:none; }
+  .conflict-ok { background:rgba(0,212,170,.08); border:1px solid rgba(0,212,170,.2); border-radius:8px; padding:14px 20px; margin-bottom:28px; font-size:13px; color:var(--teal); }
+  /* MULTI-BRACKET */
+  .bracket-tabs { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }
+  .bracket-tab { font-size:12px; font-weight:600; padding:5px 14px; border-radius:3px; border:1px solid var(--border-solid); background:transparent; color:var(--muted); cursor:pointer; transition:all .15s; }
+  .bracket-tab.active { background:var(--teal); color:var(--navy); border-color:var(--teal); }
+  .bracket-tab:hover:not(.active) { border-color:var(--teal); color:var(--teal); }
+  .add-bracket-btn { font-size:12px; color:var(--amber); background:none; border:1px dashed rgba(245,166,35,.3); border-radius:3px; padding:5px 14px; cursor:pointer; }
+  .add-bracket-btn:hover { border-color:var(--amber); }
+  .del-bracket-btn { font-size:11px; color:#f87171; background:none; border:1px solid rgba(248,113,113,.2); border-radius:3px; padding:4px 8px; cursor:pointer; }
+  .match-day-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--amber); margin:16px 0 8px; padding:4px 10px; background:rgba(245,166,35,.08); border-radius:3px; display:inline-block; }
+  .conflict-flag { font-size:11px; color:#f87171; font-weight:600; margin-left:6px; }
 
   footer { border-top:1px solid var(--border); padding:24px; text-align:center; color:var(--muted); font-size:13px; }
 
@@ -203,22 +219,22 @@
 
 <div class="ticker-wrap">
   <div class="ticker-inner">
-    <span>Jenga — Registrations Open</span><span>Chess — Registrations Open</span><span>Table Tennis — Duo Pairs Only</span><span>Ludo — Duo Pairs Only</span><span>Sequence — Duo Pairs Only</span><span>UNO — League Format</span><span>PS5 — Limited Slots</span><span>Darts — Knockout</span><span>Playing Cards — Knockout</span><span>Max 3 Games Per Person</span><span>Jenga — Registrations Open</span><span>Chess — Registrations Open</span><span>Table Tennis — Duo Pairs Only</span><span>Ludo — Duo Pairs Only</span><span>Sequence — Duo Pairs Only</span><span>UNO — League Format</span><span>PS5 — Limited Slots</span><span>Darts — Knockout</span><span>Playing Cards — Knockout</span><span>Max 3 Games Per Person</span>
+    <span>Ninja Games 2.0</span><span>Jenga — Registrations Open</span><span>Chess — Registrations Open</span><span>Table Tennis — Duo Pairs Only</span><span>Ludo — Duo Pairs Only</span><span>Sequence — Duo Pairs Only</span><span>UNO — League Format</span><span>PS5 Tekken — Limited Slots</span><span>PS5 FIFA — Limited Slots</span><span>Darts — Knockout</span><span>Playing Cards — Knockout</span><span>Max 3 Games Per Person</span><span>Ninja Games 2.0</span><span>Jenga — Registrations Open</span><span>Chess — Registrations Open</span><span>Table Tennis — Duo Pairs Only</span><span>Ludo — Duo Pairs Only</span><span>Sequence — Duo Pairs Only</span><span>UNO — League Format</span><span>PS5 Tekken — Limited Slots</span><span>PS5 FIFA — Limited Slots</span><span>Darts — Knockout</span><span>Playing Cards — Knockout</span><span>Max 3 Games Per Person</span>
   </div>
 </div>
 
 <header>
-  <div class="eyebrow">Office Championship · 4 Days · 3–6 PM</div>
-  <h1>Indoor<br><span>Sports</span> Week</h1>
+  <div class="eyebrow">Indoor Sports Week · 4 Days · 3–6 PM</div>
+  <h1>Ninja<br><span>Games</span> 2.0</h1>
   <p class="subtitle">9 games. One office. Let the best win.</p>
   <div class="header-stats">
     <div class="stat"><div class="stat-num" id="stat-players">—</div><div class="stat-label">Registered</div></div>
-    <div class="stat"><div class="stat-num">9</div><div class="stat-label">Games</div></div>
+    <div class="stat"><div class="stat-num">10</div><div class="stat-label">Games</div></div>
     <div class="stat"><div class="stat-num">4</div><div class="stat-label">Days</div></div>
-    <div class="stat"><div class="stat-num">18</div><div class="stat-label">Champions</div></div>
+    <div class="stat"><div class="stat-num">20</div><div class="stat-label">Champions</div></div>
   </div>
   <div class="cta-wrap">
-    <a href="https://forms.cloud.microsoft/r/gLiCMLwNGJ" class="btn-primary" target="_blank">Register Now →</a>
+    <a href="YOUR_MICROSOFT_FORMS_LINK_HERE" class="btn-primary" target="_blank">Register Now →</a>
     <button class="btn-secondary" onclick="switchTab('schedule')">View Schedule</button>
   </div>
 </header>
@@ -232,17 +248,19 @@
   <button class="tab" onclick="switchTab('standings')">Standings</button>
   <button class="tab" onclick="switchTab('leaderboard')">Leaderboard</button>
   <button class="tab" onclick="switchTab('admin')">Leads Only</button>
+  <button class="tab" onclick="switchTab('conflicts')">⚠ Conflicts</button>
 </nav>
 
 <!-- GAMES -->
 <section class="section active" id="tab-games">
   <div class="section-title">All Games</div>
-  <p class="section-sub">9 games across 4 days. Individual and Duo formats. Each game produces 1 Winner and 1 Runner-Up.</p>
+  <p class="section-sub">10 games across 4 days. Individual and Duo formats. Each game produces 1 Winner and 1 Runner-Up.</p>
   <div class="games-grid">
     <div class="game-card"><div class="game-emoji">🗼</div><div class="game-name">Jenga</div><div class="game-badge badge-individual">Individual</div><div class="game-meta"><span>📋 Knockout</span><span>⏱ ~10 min/match</span><span>📅 Days 1–2</span></div></div>
     <div class="game-card"><div class="game-emoji">♟️</div><div class="game-name">Chess</div><div class="game-badge badge-individual">Individual</div><div class="game-meta"><span>📋 Knockout / Swiss</span><span>⏱ ~20 min/match</span><span>📅 Days 1–3</span></div></div>
     <div class="game-card"><div class="game-emoji">🎯</div><div class="game-name">Darts</div><div class="game-badge badge-individual">Individual</div><div class="game-meta"><span>📋 Knockout</span><span>⏱ ~10 min/match</span><span>📅 Days 1–2</span></div></div>
-    <div class="game-card"><div class="game-emoji">🎮</div><div class="game-name">PS5</div><div class="game-badge badge-individual">Individual</div><div class="game-meta"><span>📋 Knockout</span><span>⏱ ~15 min/match</span><span>📅 Days 2–3</span></div></div>
+    <div class="game-card"><div class="game-emoji">🥊</div><div class="game-name">PS5 — Tekken</div><div class="game-badge badge-individual">Individual</div><div class="game-meta"><span>📋 Knockout</span><span>⏱ ~15 min/match</span><span>📅 Days 2–3</span><span>⚠ Pick Tekken OR FIFA — not both</span></div></div>
+    <div class="game-card"><div class="game-emoji">⚽</div><div class="game-name">PS5 — FIFA</div><div class="game-badge badge-individual">Individual</div><div class="game-meta"><span>📋 Knockout</span><span>⏱ ~15 min/match</span><span>📅 Days 2–3</span><span>⚠ Pick Tekken OR FIFA — not both</span></div></div>
     <div class="game-card"><div class="game-emoji">🃏</div><div class="game-name">Playing Cards</div><div class="game-badge badge-individual">Individual</div><div class="game-meta"><span>📋 Knockout</span><span>⏱ ~20 min/match</span><span>📅 Days 2–3</span></div></div>
     <div class="game-card"><div class="game-emoji">🎴</div><div class="game-name">UNO</div><div class="game-badge badge-individual">Individual</div><div class="game-meta"><span>📋 League + Final</span><span>⏱ ~25 min/match</span><span>📅 Days 1–4</span></div></div>
     <div class="game-card duo"><div class="game-emoji">🎲</div><div class="game-name">Ludo</div><div class="game-badge badge-duo">Duo 2v2</div><div class="game-meta"><span>📋 League + Final</span><span>⏱ ~30 min/match</span><span>📅 Days 1–4</span></div></div>
@@ -266,12 +284,13 @@
     <p>Fill in the Microsoft Form below. Registrations close 24 hours before Day 1.</p>
     <ul class="rules-list">
       <li>Maximum 3 games per employee — no exceptions</li>
+      <li>PS5 Tekken and PS5 FIFA count as the same slot — pick one only</li>
       <li>Duo games (Ludo, Sequence, TT) require a named partner</li>
       <li>First-come, first-served — slots are capped per game</li>
       <li>Dropouts after the draw = disqualification from future events</li>
     </ul>
     <br>
-    <a href="https://forms.cloud.microsoft/r/gLiCMLwNGJ" class="btn-primary" target="_blank" style="font-size:15px;padding:16px 40px;">Open Registration Form →</a>
+    <a href="YOUR_MICROSOFT_FORMS_LINK_HERE" class="btn-primary" target="_blank" style="font-size:15px;padding:16px 40px;">Open Registration Form →</a>
     <p style="margin-top:16px;font-size:12px;color:var(--muted);">Form opens in Microsoft Forms. Responses are tracked automatically by the HR team.</p>
   </div>
 </section>
@@ -325,6 +344,7 @@
     <div class="admin-bar">
       <h2>Leads Panel</h2>
       <div class="admin-bar-right">
+        <span id="sync-status" style="font-size:12px;"></span>
         <span class="admin-tag">✓ Authenticated</span>
         <button class="btn-danger btn-sm" onclick="lockAdmin()">Lock</button>
       </div>
@@ -378,54 +398,134 @@
 
 <div id="save-toast">✓ Changes saved and published</div>
 
+<!-- CONFLICTS TAB (public — no login needed, leads share this view) -->
+<section class="section" id="tab-conflicts">
+  <div class="section-title">⚠ Schedule Conflicts</div>
+  <p class="section-sub">Automatically detected when a player is assigned to two games in the same time slot. Leads resolve by adjusting match timing or swapping players.</p>
+  <div id="conflict-report">
+    <div style="text-align:center;padding:48px 0;color:var(--muted);font-size:14px;">No match data yet — conflicts will appear here once leads enter player assignments.</div>
+  </div>
+</section>
+
 <footer>Indoor Sports Week · Organised by HR · All match disputes escalate to the central coordinator</footer>
 
 <script>
 // ── CONFIG ──────────────────────────────────────────────────────────────────
 var ADMIN_PASSWORD = "SportsFest2025"; // ← change this before deploying
 
+var SUPABASE_URL = "https://wqhsejlanpgleemkorft.supabase.co";
+var SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndxaHNlamxhbnBnbGVlbWtvcmZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMwNTQ2NDEsImV4cCI6MjA5ODYzMDY0MX0.FBi_TlxDR_HopyiPdrclaefYB5sk_VYMsu5C5QN1sUc";
+var SB_HEADERS = {
+  "apikey": SUPABASE_KEY,
+  "Authorization": "Bearer " + SUPABASE_KEY,
+  "Content-Type": "application/json"
+};
+
 var GAMES = [
-  { id:"uno",      name:"UNO",           emoji:"🎴", format:"league",   type:"Individual" },
-  { id:"ludo",     name:"Ludo",          emoji:"🎲", format:"league",   type:"Duo 2v2"    },
-  { id:"sequence", name:"Sequence",      emoji:"🧩", format:"league",   type:"Duo 2v2"    },
-  { id:"jenga",    name:"Jenga",         emoji:"🗼", format:"knockout", type:"Individual" },
-  { id:"chess",    name:"Chess",         emoji:"♟️", format:"knockout", type:"Individual" },
-  { id:"darts",    name:"Darts",         emoji:"🎯", format:"knockout", type:"Individual" },
-  { id:"ps5",      name:"PS5",           emoji:"🎮", format:"knockout", type:"Individual" },
-  { id:"cards",    name:"Playing Cards", emoji:"🃏", format:"knockout", type:"Individual" },
-  { id:"tt",       name:"Table Tennis",  emoji:"🏓", format:"knockout", type:"Duo 2v2"    },
+  { id:"uno",       name:"UNO",           emoji:"🎴", format:"league",   type:"Individual" },
+  { id:"ludo",      name:"Ludo",          emoji:"🎲", format:"league",   type:"Duo 2v2"    },
+  { id:"sequence",  name:"Sequence",      emoji:"🧩", format:"league",   type:"Duo 2v2"    },
+  { id:"jenga",     name:"Jenga",         emoji:"🗼", format:"knockout", type:"Individual" },
+  { id:"chess",     name:"Chess",         emoji:"♟️", format:"knockout", type:"Individual" },
+  { id:"darts",     name:"Darts",         emoji:"🎯", format:"knockout", type:"Individual" },
+  { id:"ps5tekken", name:"PS5 — Tekken",  emoji:"🥊", format:"knockout", type:"Individual" },
+  { id:"ps5fifa",   name:"PS5 — FIFA",    emoji:"⚽", format:"knockout", type:"Individual" },
+  { id:"cards",     name:"Playing Cards", emoji:"🃏", format:"knockout", type:"Individual" },
+  { id:"tt",        name:"Table Tennis",  emoji:"🏓", format:"knockout", type:"Duo 2v2"    },
 ];
 
-// ── STATE ────────────────────────────────────────────────────────────────────
-function loadState() {
-  try { return JSON.parse(localStorage.getItem("sportsweek_v2") || "{}"); } catch(e) { return {}; }
+// ── STATE — Supabase-backed, localStorage fallback ───────────────────────────
+var _cache = null;
+var _syncTimer = null;
+
+function showSyncStatus(msg, color) {
+  var el = document.getElementById('sync-status');
+  if(el) { el.textContent = msg; el.style.color = color || 'var(--muted)'; }
 }
+
+async function loadState() {
+  if(_cache) return _cache;
+  try {
+    var res = await fetch(SUPABASE_URL + "/rest/v1/game_state?id=eq.main&select=data", { headers: SB_HEADERS });
+    if(res.ok) {
+      var rows = await res.json();
+      if(rows && rows[0] && rows[0].data) {
+        _cache = rows[0].data;
+        try { localStorage.setItem('ninjagames_bk', JSON.stringify(_cache)); } catch(e){}
+        return _cache;
+      }
+    }
+  } catch(e) { console.warn('Supabase load failed, using local fallback'); }
+  try { _cache = JSON.parse(localStorage.getItem('ninjagames_bk') || '{}'); } catch(e) { _cache = {}; }
+  return _cache;
+}
+
+async function pushState(s) {
+  _cache = s;
+  try { localStorage.setItem('ninjagames_bk', JSON.stringify(s)); } catch(e){}
+  showSyncStatus('Saving…', 'var(--amber)');
+  try {
+    var res = await fetch(SUPABASE_URL + "/rest/v1/game_state?id=eq.main", {
+      method: "PATCH",
+      headers: Object.assign({}, SB_HEADERS, {"Prefer":"return=minimal"}),
+      body: JSON.stringify({ data: s, updated_at: new Date().toISOString() })
+    });
+    showSyncStatus(res.ok ? '✓ Synced to all devices' : '⚠ Sync failed — saved locally', res.ok ? 'var(--teal)' : '#f87171');
+    if(res.ok) setTimeout(function(){ showSyncStatus('',''); }, 3000);
+  } catch(e) {
+    showSyncStatus('⚠ Offline — saved locally', '#f87171');
+  }
+}
+
 function saveState(s) {
-  localStorage.setItem("sportsweek_v2", JSON.stringify(s));
+  _cache = s;
+  try { localStorage.setItem('ninjagames_bk', JSON.stringify(s)); } catch(e){}
+  clearTimeout(_syncTimer);
+  _syncTimer = setTimeout(function(){ pushState(s); }, 700);
+}
+
+// Poll every 20s so public viewers see live updates
+var _poll = null;
+function startPolling() {
+  if(_poll) return;
+  _poll = setInterval(async function(){
+    _cache = null;
+    var s = await loadState();
+    renderPublic(s);
+    runConflictCheck(s);
+  }, 20000);
+}
+function stopPolling() {
+  clearInterval(_poll);
+  _poll = null;
 }
 
 // ── TAB SWITCHING ────────────────────────────────────────────────────────────
-var TAB_ORDER = ["games","register","schedule","standings","leaderboard","admin"];
-function switchTab(name) {
+var TAB_ORDER = ["games","register","schedule","standings","leaderboard","admin","conflicts"];
+async function switchTab(name) {
   document.querySelectorAll(".tab").forEach(function(t,i){ t.classList.toggle("active", TAB_ORDER[i]===name); });
   document.querySelectorAll(".section").forEach(function(s){ s.classList.remove("active"); });
   document.getElementById("tab-"+name).classList.add("active");
   window.scrollTo({top:document.querySelector("nav.tabs").offsetTop-10,behavior:"smooth"});
-  if(name==="standings"||name==="leaderboard") renderPublic();
+  _cache = null; // always fresh on tab switch
+  var s = await loadState();
+  if(name==="standings"||name==="leaderboard") renderPublic(s);
   if(name==="schedule") renderSchedule();
+  if(name==="conflicts") runConflictCheck(s);
+  if(name==="standings"||name==="leaderboard"||name==="conflicts") startPolling();
+  else if(name==="admin") stopPolling();
 }
 
 // ── AUTH ─────────────────────────────────────────────────────────────────────
 var authed = false;
-function checkPw() {
+async function checkPw() {
   var v = document.getElementById("pw-input").value;
   if(v === ADMIN_PASSWORD) {
-    authed = true;
     document.getElementById("pw-err").textContent = "";
     document.getElementById("pw-input").value = "";
     document.getElementById("admin-lock").style.display = "none";
     document.getElementById("admin-panel").style.display = "block";
-    buildAdminPanel();
+    await buildAdminPanel();
   } else {
     document.getElementById("pw-err").textContent = "Incorrect password.";
   }
@@ -438,8 +538,8 @@ function lockAdmin() {
 }
 
 // ── ADMIN PANEL BUILD ────────────────────────────────────────────────────────
-function buildAdminPanel() {
-  var s = loadState();
+async function buildAdminPanel() {
+  var s = await loadState();
   populateTimeSelects();
   var container = document.getElementById("admin-games");
   container.innerHTML = "";
@@ -512,75 +612,267 @@ function updatePlayer(gid, idx, key, val) {
   s[gid].players[idx][key] = val;
   saveState(s);
 }
-function addPlayer(gid) {
+async function addPlayer(gid) {
   var s = loadState();
   if(!s[gid]) s[gid]={};
   if(!s[gid].players) s[gid].players=[];
   s[gid].players.push({name:'',md1:'—',md2:'—',md3:'—'});
   saveState(s);
-  buildAdminPanel();
+  await buildAdminPanel();
   document.getElementById("body-"+gid).classList.add("open");
   document.getElementById("arrow-"+gid).textContent="⌄";
 }
-function delPlayer(gid, idx) {
+async function delPlayer(gid, idx) {
   var s = loadState();
   s[gid].players.splice(idx,1);
   saveState(s);
-  buildAdminPanel();
+  await buildAdminPanel();
   document.getElementById("body-"+gid).classList.add("open");
   document.getElementById("arrow-"+gid).textContent="⌄";
 }
 
-// Knockout editor
+// Knockout editor — multi-bracket support for PS5, TT, Darts
+var MULTI_BRACKET_GAMES = ['ps5tekken','ps5fifa','tt','darts'];
+var ROUND_NAMES = ['Round 1','Round 2','Quarter-Finals','Semi-Finals'];
+var DAY_LABELS  = ['Day 1','Day 2','Day 3','Day 4'];
+
+// active bracket tab per game
+var activeBracket = {};
+
 function buildKnockoutEditor(g, gs) {
-  var rounds = gs.rounds || [];
-  var roundNames = ["Round 1","Quarter-Finals","Semi-Finals"];
-  var rHtml = roundNames.map(function(rn, ri){
-    var matches = (rounds[ri]||[]);
-    var mRows = matches.map(function(m,mi){
-      return '<tr>'
-        +'<td style="color:var(--muted);font-size:12px;">Match '+(mi+1)+'</td>'
-        +'<td><input value="'+esc(m.p1||'')+'" placeholder="Player 1" oninput="updateMatch(\''+g.id+'\','+ri+','+mi+',\'p1\',this.value)"></td>'
-        +'<td><input value="'+esc(m.p2||'')+'" placeholder="Player 2" oninput="updateMatch(\''+g.id+'\','+ri+','+mi+',\'p2\',this.value)"></td>'
-        +'<td><input value="'+esc(m.winner||'')+'" placeholder="Winner" style="border-color:rgba(0,212,170,.3);" oninput="updateMatch(\''+g.id+'\','+ri+','+mi+',\'winner\',this.value)"></td>'
-        +'<td style="text-align:center;"><button class="del-row-btn" onclick="delMatch(\''+g.id+'\','+ri+','+mi+')">×</button></td>'
-        +'</tr>';
-    }).join('');
+  var isMulti = MULTI_BRACKET_GAMES.indexOf(g.id) !== -1;
+  var brackets = gs.brackets || [{ name:'Bracket A', rounds:[] }];
+
+  // ensure activeBracket initialised
+  if(activeBracket[g.id] === undefined) activeBracket[g.id] = 0;
+  var bi = Math.min(activeBracket[g.id], brackets.length-1);
+
+  var tabsHtml = '<div class="bracket-tabs">';
+  brackets.forEach(function(br, bri){
+    tabsHtml += '<button class="bracket-tab'+(bri===bi?' active':'')+'" onclick="switchBracket(\''+g.id+'\','+bri+')">'+esc(br.name||('Bracket '+(bri+1)))+'</button>';
+    if(bri===bi && brackets.length>1){
+      tabsHtml += '<button class="del-bracket-btn" onclick="delBracket(\''+g.id+'\','+bri+')">✕ Remove</button>';
+    }
+  });
+  if(isMulti) tabsHtml += '<button class="add-bracket-btn" onclick="addBracket(\''+g.id+'\')">+ Add Bracket</button>';
+  tabsHtml += '</div>';
+
+  var br = brackets[bi] || {rounds:[]};
+  var rounds = br.rounds || [];
+
+  var rHtml = ROUND_NAMES.map(function(rn, ri){
+    var matches = rounds[ri] || [];
+    // group matches by day
+    var byDay = {};
+    matches.forEach(function(m,mi){
+      var d = m.day||'Day 1';
+      if(!byDay[d]) byDay[d]=[];
+      byDay[d].push({m:m,mi:mi});
+    });
+    var allDays = DAY_LABELS.filter(function(d){ return byDay[d]; });
+    if(allDays.length===0) allDays=['Day 1'];
+
+    var rows = '';
+    allDays.forEach(function(day){
+      rows += '<div class="match-day-label">'+day+'</div>';
+      (byDay[day]||[]).forEach(function(entry){
+        var m=entry.m; var mi=entry.mi;
+        var cf = detectMatchConflict(g.id, bi, ri, mi);
+        rows += '<tr style="'+(cf?'background:rgba(127,29,29,.2);':'')+'">'
+          +'<td style="color:var(--muted);font-size:12px;">Match '+(mi+1)+(cf?'<span class="conflict-flag">⚠ Conflict</span>':'')+'</td>'
+          +'<td><input value="'+esc(m.p1||'')+'" placeholder="Player 1" oninput="updateMatchB(\''+g.id+'\','+bi+','+ri+','+mi+',\'p1\',this.value)"></td>'
+          +'<td><input value="'+esc(m.p2||'')+'" placeholder="Player 2" oninput="updateMatchB(\''+g.id+'\','+bi+','+ri+','+mi+',\'p2\',this.value)"></td>'
+          +'<td><input value="'+esc(m.winner||'')+'" placeholder="Winner" style="border-color:rgba(0,212,170,.3);" oninput="updateMatchB(\''+g.id+'\','+bi+','+ri+','+mi+',\'winner\',this.value)"></td>'
+          +'<td><select onchange="updateMatchB(\''+g.id+'\','+bi+','+ri+','+mi+',\'day\',this.value)" style="background:var(--navy2);border:1px solid var(--border-solid);border-radius:3px;color:var(--white);font-size:12px;padding:5px 8px;outline:none;">'
+          +DAY_LABELS.map(function(dl){ return '<option'+(dl===(m.day||'Day 1')?' selected':'')+'>'+dl+'</option>'; }).join('')
+          +'</select></td>'
+          +'<td style="text-align:center;"><button class="del-row-btn" onclick="delMatchB(\''+g.id+'\','+bi+','+ri+','+mi+')">×</button></td>'
+          +'</tr>';
+      });
+    });
+
+    // also show unassigned matches
+    var unassigned = matches.filter(function(m){ return !m.day; });
+
     return '<div class="admin-section-label">'+rn+'</div>'
-      +'<table class="edit-table"><thead><tr><th></th><th>Player 1</th><th>Player 2</th><th>Winner</th><th></th></tr></thead>'
-      +'<tbody>'+mRows+'</tbody></table>'
-      +'<button class="add-row-btn" onclick="addMatch(\''+g.id+'\','+ri+')">+ Add match</button>';
+      +'<table class="edit-table"><thead><tr><th></th><th>Player 1</th><th>Player 2</th><th>Winner</th><th>Day</th><th></th></tr></thead>'
+      +'<tbody>'+rows+'</tbody></table>'
+      +'<button class="add-row-btn" onclick="addMatchB(\''+g.id+'\','+bi+','+ri+')">+ Add match</button>';
   }).join('');
-  return rHtml + buildFinalEditor(g, gs);
+
+  return (isMulti ? tabsHtml : '') + rHtml + buildFinalEditor(g, gs);
 }
 
+async function switchBracket(gid, bi) {
+  activeBracket[gid] = bi;
+  await buildAdminPanel();
+  document.getElementById('body-'+gid).classList.add('open');
+  document.getElementById('arrow-'+gid).textContent='⌄';
+}
+async function addBracket(gid) {
+  var s = loadState();
+  if(!s[gid]) s[gid]={};
+  if(!s[gid].brackets) s[gid].brackets=[{name:'Bracket A',rounds:[]}];
+  var letters='ABCDEFGH';
+  var idx=s[gid].brackets.length;
+  s[gid].brackets.push({name:'Bracket '+(letters[idx]||idx+1),rounds:[]});
+  saveState(s);
+  activeBracket[gid]=s[gid].brackets.length-1;
+  await buildAdminPanel();
+  document.getElementById('body-'+gid).classList.add('open');
+  document.getElementById('arrow-'+gid).textContent='⌄';
+}
+async function delBracket(gid, bi) {
+  var s = loadState();
+  s[gid].brackets.splice(bi,1);
+  if(!s[gid].brackets.length) s[gid].brackets=[{name:'Bracket A',rounds:[]}];
+  saveState(s);
+  activeBracket[gid]=0;
+  await buildAdminPanel();
+  document.getElementById('body-'+gid).classList.add('open');
+  document.getElementById('arrow-'+gid).textContent='⌄';
+}
+
+function updateMatchB(gid, bi, ri, mi, key, val) {
+  var s = loadState();
+  if(!s[gid]) s[gid]={};
+  if(!s[gid].brackets) s[gid].brackets=[{name:'Bracket A',rounds:[]}];
+  var br=s[gid].brackets[bi];
+  if(!br.rounds) br.rounds=[];
+  if(!br.rounds[ri]) br.rounds[ri]=[];
+  if(!br.rounds[ri][mi]) br.rounds[ri][mi]={};
+  br.rounds[ri][mi][key]=val;
+  saveState(s);
+  runConflictCheck();
+}
+async function addMatchB(gid, bi, ri) {
+  var s = loadState();
+  if(!s[gid]) s[gid]={};
+  if(!s[gid].brackets) s[gid].brackets=[{name:'Bracket A',rounds:[]}];
+  var br=s[gid].brackets[bi];
+  if(!br.rounds) br.rounds=[];
+  if(!br.rounds[ri]) br.rounds[ri]=[];
+  br.rounds[ri].push({p1:'',p2:'',winner:'',day:'Day 1'});
+  saveState(s);
+  await buildAdminPanel();
+  document.getElementById('body-'+gid).classList.add('open');
+  document.getElementById('arrow-'+gid).textContent='⌄';
+}
+async function delMatchB(gid, bi, ri, mi) {
+  var s = loadState();
+  s[gid].brackets[bi].rounds[ri].splice(mi,1);
+  saveState(s);
+  await buildAdminPanel();
+  document.getElementById('body-'+gid).classList.add('open');
+  document.getElementById('arrow-'+gid).textContent='⌄';
+}
+
+// Legacy match functions (for non-multi-bracket games already stored with .rounds)
 function updateMatch(gid, ri, mi, key, val) {
-  var s = loadState();
-  if(!s[gid]) s[gid]={};
-  if(!s[gid].rounds) s[gid].rounds=[];
-  if(!s[gid].rounds[ri]) s[gid].rounds[ri]=[];
-  if(!s[gid].rounds[ri][mi]) s[gid].rounds[ri][mi]={};
-  s[gid].rounds[ri][mi][key]=val;
-  saveState(s);
+  // redirect to bracket 0
+  updateMatchB(gid, 0, ri, mi, key, val);
 }
-function addMatch(gid, ri) {
+function addMatch(gid, ri) { addMatchB(gid, 0, ri); }
+function delMatch(gid, ri, mi) { delMatchB(gid, 0, ri, mi); }
+
+// ── CONFLICT DETECTION ───────────────────────────────────────────────────────
+// Build a map: playerName → [{game, bracket, round, matchIdx, day}]
+function buildPlayerSchedule() {
   var s = loadState();
-  if(!s[gid]) s[gid]={};
-  if(!s[gid].rounds) s[gid].rounds=[];
-  if(!s[gid].rounds[ri]) s[gid].rounds[ri]=[];
-  s[gid].rounds[ri].push({p1:'',p2:'',winner:''});
-  saveState(s);
-  buildAdminPanel();
-  document.getElementById("body-"+gid).classList.add("open");
-  document.getElementById("arrow-"+gid).textContent="⌄";
+  var schedule = {}; // player -> [{game,bracket,round,day,match}]
+
+  GAMES.forEach(function(g){
+    var gs = s[g.id]||{};
+    var brackets = gs.brackets || (gs.rounds ? [{name:'Main',rounds:gs.rounds}] : [{name:'Main',rounds:[]}]);
+    brackets.forEach(function(br,bi){
+      (br.rounds||[]).forEach(function(round,ri){
+        (round||[]).forEach(function(m,mi){
+          var day = m.day||'Day 1';
+          [m.p1,m.p2].forEach(function(p){
+            if(!p||!p.trim()) return;
+            var key = p.trim().toLowerCase();
+            if(!schedule[key]) schedule[key]={name:p.trim(),matches:[]};
+            schedule[key].matches.push({game:g.name,bracket:br.name,round:ROUND_NAMES[ri]||('R'+(ri+1)),day:day,matchIdx:mi});
+          });
+        });
+      });
+    });
+    // also check league players (no day conflict possible since different day slots)
+  });
+  return schedule;
 }
-function delMatch(gid, ri, mi) {
+
+function detectMatchConflict(gid, bi, ri, mi) {
   var s = loadState();
-  s[gid].rounds[ri].splice(mi,1);
-  saveState(s);
-  buildAdminPanel();
-  document.getElementById("body-"+gid).classList.add("open");
-  document.getElementById("arrow-"+gid).textContent="⌄";
+  var gs = s[gid]||{};
+  var brackets = gs.brackets || (gs.rounds ? [{name:'Main',rounds:gs.rounds}] : [{name:'Main',rounds:[]}]);
+  var br = brackets[bi]||{rounds:[]};
+  var m = (br.rounds[ri]||[])[mi];
+  if(!m) return false;
+  var day = m.day||'Day 1';
+  var players = [m.p1,m.p2].filter(Boolean).map(function(p){ return p.trim().toLowerCase(); });
+  if(!players.length) return false;
+
+  var sched = buildPlayerSchedule();
+  for(var pi=0;pi<players.length;pi++){
+    var p=players[pi];
+    var entries = (sched[p]||{}).matches||[];
+    var sameDay = entries.filter(function(e){
+      return e.day===day && !(e.game===GAMES.find(function(g){return g.id===gid;}).name && e.bracket===(br.name) && e.round===(ROUND_NAMES[ri]||'R'+(ri+1)) && e.matchIndex===mi);
+    });
+    if(sameDay.length>1) return true;
+  }
+  return false;
+}
+
+function runConflictCheck(s) {
+  s = s || _cache || {};
+  var sched = buildPlayerSchedule();
+  var conflicts = [];
+
+  Object.keys(sched).forEach(function(key){
+    var entry = sched[key];
+    var byDay = {};
+    entry.matches.forEach(function(m){
+      if(!byDay[m.day]) byDay[m.day]=[];
+      byDay[m.day].push(m);
+    });
+    Object.keys(byDay).forEach(function(day){
+      if(byDay[day].length>1){
+        conflicts.push({
+          player: entry.name,
+          day: day,
+          games: byDay[day].map(function(m){ return m.game+(m.bracket&&m.bracket!=='Main'?' ('+m.bracket+')':''); })
+        });
+      }
+    });
+  });
+
+  // render conflict report tab
+  var el = document.getElementById('conflict-report');
+  if(el){
+    if(conflicts.length===0){
+      el.innerHTML='<div class="conflict-ok">✓ No scheduling conflicts detected. All players are assigned to at most one game per day.</div>';
+    } else {
+      var html='<div class="conflict-panel"><h3>⚠ '+conflicts.length+' conflict'+(conflicts.length>1?'s':'')+' detected</h3>';
+      conflicts.forEach(function(c){
+        html+='<div class="conflict-item"><strong>'+esc(c.player)+'</strong> — '+esc(c.day)+': assigned to <strong>'+c.games.map(esc).join('</strong> AND <strong>')+'</strong></div>';
+      });
+      html+='</div>';
+      html+='<p style="font-size:13px;color:var(--muted);">Resolve by moving one match to a different day in the Leads Only panel, or swapping in a different player.</p>';
+      el.innerHTML=html;
+    }
+  }
+
+  // update tab label
+  var tabs=document.querySelectorAll('.tab');
+  var tabIdx=TAB_ORDER.indexOf('conflicts');
+  if(tabs[tabIdx]){
+    tabs[tabIdx].textContent = conflicts.length>0 ? '⚠ Conflicts ('+conflicts.length+')' : '✓ Conflicts';
+    tabs[tabIdx].style.color = conflicts.length>0 ? '#f87171' : 'var(--teal)';
+  }
+
+  return conflicts;
 }
 
 // Final result editor (shared by both formats)
@@ -600,17 +892,19 @@ function updateFinal(gid, key, val) {
 }
 
 // ── SAVE + PUBLISH ───────────────────────────────────────────────────────────
-function saveAll() {
-  renderPublic();
+async function saveAll() {
+  var s = await loadState();
+  renderPublic(s);
   renderSchedule();
+  runConflictCheck(s);
   var t = document.getElementById("save-toast");
   t.classList.add("show");
   setTimeout(function(){ t.classList.remove("show"); }, 2800);
 }
 
 // ── PUBLIC RENDER ────────────────────────────────────────────────────────────
-function renderPublic() {
-  var s = loadState();
+function renderPublic(s) {
+  s = s || _cache || {};
   renderStandings(s);
   renderLeaderboard(s);
   renderRegisteredCount(s);
@@ -899,8 +1193,13 @@ function renderSchedule() {
 }
 
 // ── Init
-renderPublic();
-renderSchedule();
+(async function(){
+  var s = await loadState();
+  renderPublic(s);
+  renderSchedule();
+  runConflictCheck(s);
+  startPolling();
+})();
 </script>
 </body>
 </html>
