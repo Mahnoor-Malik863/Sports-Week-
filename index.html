@@ -142,7 +142,7 @@
   #admin-lock .lock-icon { font-size:48px; margin-bottom:24px; }
   #admin-lock h2 { font-family:'Bebas Neue',sans-serif; font-size:36px; color:var(--white); margin-bottom:8px; }
   #admin-lock p { color:var(--muted); font-size:14px; margin-bottom:28px; }
-  #admin-lock input[type=password] { width:100%; padding:14px 18px; background:var(--card-bg); border:1px solid var(--border-solid); border-radius:4px; color:var(--white); font-size:15px; font-family:'Inter',sans-serif; margin-bottom:12px; outline:none; }
+  #admin-lock input[type=password] { width:100%; padding:14px 18px; background:var(--card-bg); border:1px solid var(--border-solid); border-radius:6px; color:var(--white); font-size:15px; font-family:'Inter',sans-serif; margin-bottom:12px; outline:none; transition:border-color .15s; letter-spacing:.1em; }
   #admin-lock input[type=password]:focus { border-color:var(--teal); }
   #admin-lock .err { color:#f87171; font-size:13px; margin-bottom:12px; min-height:20px; }
 
@@ -170,8 +170,10 @@
   .edit-table tr:last-child td { border-bottom:none; }
   .edit-table input { background:rgba(255,255,255,.05); border:1px solid var(--border-solid); border-radius:3px; color:var(--white); font-size:13px; font-family:'Inter',sans-serif; padding:6px 10px; width:100%; outline:none; }
   .edit-table input:focus { border-color:var(--teal); }
-  .edit-table select { background:var(--navy2); border:1px solid var(--border-solid); border-radius:3px; color:var(--white); font-size:13px; font-family:'Inter',sans-serif; padding:6px 10px; width:100%; outline:none; }
+  .edit-table select { background:var(--navy2); border:1px solid var(--border-solid); border-radius:4px; color:var(--white); font-size:13px; font-family:'Inter',sans-serif; padding:7px 10px; width:100%; outline:none; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9BB0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 10px center; padding-right:28px; cursor:pointer; transition:border-color .15s; }
   .edit-table select:focus { border-color:var(--teal); }
+  .edit-table select:hover { border-color:rgba(0,212,170,.4); }
+  .edit-table input:hover { border-color:rgba(0,212,170,.4); }
   .add-row-btn { font-size:12px; color:var(--teal); background:none; border:1px dashed rgba(0,212,170,.3); border-radius:3px; padding:6px 14px; cursor:pointer; transition:border-color .15s; }
   .add-row-btn:hover { border-color:var(--teal); }
   .del-row-btn { background:none; border:none; color:#f87171; font-size:16px; cursor:pointer; padding:0 4px; line-height:1; }
@@ -358,15 +360,15 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;">
         <div>
           <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">Start Time</div>
-          <select id="cfg-start" style="background:var(--navy2);border:1px solid var(--border-solid);border-radius:3px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;padding:8px 12px;width:100%;outline:none;" onchange="saveCfg()"></select>
+          <select id="cfg-start" style="background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;padding:8px 32px 8px 12px;width:100%;outline:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9BB0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;" onchange="saveCfg()"></select>
         </div>
         <div>
           <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">End Time</div>
-          <select id="cfg-end" style="background:var(--navy2);border:1px solid var(--border-solid);border-radius:3px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;padding:8px 12px;width:100%;outline:none;" onchange="saveCfg()"></select>
+          <select id="cfg-end" style="background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;padding:8px 32px 8px 12px;width:100%;outline:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9BB0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;" onchange="saveCfg()"></select>
         </div>
         <div>
           <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">Slot Duration</div>
-          <select id="cfg-slot" style="background:var(--navy2);border:1px solid var(--border-solid);border-radius:3px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;padding:8px 12px;width:100%;outline:none;" onchange="saveCfg()">
+          <select id="cfg-slot" style="background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;padding:8px 32px 8px 12px;width:100%;outline:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9BB0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;" onchange="saveCfg()">
             <option value="15">15 minutes</option>
             <option value="20">20 minutes</option>
             <option value="30">30 minutes</option>
@@ -385,6 +387,7 @@
         <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">Day 2</div><input id="date-2" type="text" placeholder="e.g. Tue 29 Jul" style="background:var(--navy2);border:1px solid var(--border-solid);border-radius:3px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;padding:8px 12px;width:100%;outline:none;" oninput="saveCfg()"></div>
         <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">Day 3</div><input id="date-3" type="text" placeholder="e.g. Wed 30 Jul" style="background:var(--navy2);border:1px solid var(--border-solid);border-radius:3px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;padding:8px 12px;width:100%;outline:none;" oninput="saveCfg()"></div>
         <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">Day 4 (Finals)</div><input id="date-4" type="text" placeholder="e.g. Thu 31 Jul" style="background:var(--navy2);border:1px solid var(--border-solid);border-radius:3px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;padding:8px 12px;width:100%;outline:none;" oninput="saveCfg()"></div>
+        <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">Day 5 — Friday <span style="color:var(--amber);font-size:10px;">(Optional)</span></div><input id="date-5" type="text" placeholder="Leave blank if not needed" style="background:var(--navy2);border:1px solid var(--border-solid);border-radius:3px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;padding:8px 12px;width:100%;outline:none;" oninput="saveCfg()"></div>
       </div>
     </div>
 
@@ -592,7 +595,12 @@ function buildLeagueEditor(g, gs) {
       +'</tr>';
   }).join('');
 
-  return '<div class="admin-section-label">League Standings</div>'
+  var rulesUrl = gs.rulesUrl||'';
+  return '<div class="admin-section-label">📄 Rules Document</div>'
+    +'<div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;"><input style="flex:1;background:rgba(255,255,255,.05);border:1px solid var(--border-solid);border-radius:3px;color:var(--white);font-size:13px;font-family:Inter,sans-serif;padding:7px 12px;outline:none;" placeholder="Paste Google Drive / OneDrive link to rules PDF" value="'+esc(rulesUrl)+'" oninput="updateRules(\''+g.id+'\',this.value)">'
+    +(rulesUrl?'<a href="'+esc(rulesUrl)+'" target="_blank" style="font-size:12px;color:var(--teal);white-space:nowrap;">View →</a>':'')
+    +'</div>'
+    +'<div class="admin-section-label">League Standings</div>'
     +'<table class="edit-table"><thead><tr><th>Player / Team</th><th>MD1</th><th>MD2</th><th>MD3</th><th>Pts</th><th></th></tr></thead>'
     +'<tbody id="lb-rows-'+g.id+'">'+rows+'</tbody></table>'
     +'<button class="add-row-btn" onclick="addPlayer(\''+g.id+'\')">+ Add player / team</button>'
@@ -605,7 +613,7 @@ function mdOpts(v) {
 function calcPts(p) { return (p.md1==='W'?3:0)+(p.md2==='W'?3:0)+(p.md3==='W'?3:0); }
 
 function updatePlayer(gid, idx, key, val) {
-  var s = loadState();
+  var s = _cache || {};
   if(!s[gid]) s[gid]={};
   if(!s[gid].players) s[gid].players=[];
   if(!s[gid].players[idx]) s[gid].players[idx]={};
@@ -613,7 +621,7 @@ function updatePlayer(gid, idx, key, val) {
   saveState(s);
 }
 async function addPlayer(gid) {
-  var s = loadState();
+  var s = await loadState();
   if(!s[gid]) s[gid]={};
   if(!s[gid].players) s[gid].players=[];
   s[gid].players.push({name:'',md1:'—',md2:'—',md3:'—'});
@@ -623,7 +631,7 @@ async function addPlayer(gid) {
   document.getElementById("arrow-"+gid).textContent="⌄";
 }
 async function delPlayer(gid, idx) {
-  var s = loadState();
+  var s = await loadState();
   s[gid].players.splice(idx,1);
   saveState(s);
   await buildAdminPanel();
@@ -634,7 +642,7 @@ async function delPlayer(gid, idx) {
 // Knockout editor — multi-bracket support for PS5, TT, Darts
 var MULTI_BRACKET_GAMES = ['ps5tekken','ps5fifa','tt','darts'];
 var ROUND_NAMES = ['Round 1','Round 2','Quarter-Finals','Semi-Finals'];
-var DAY_LABELS  = ['Day 1','Day 2','Day 3','Day 4'];
+var DAY_LABELS  = ['Day 1','Day 2','Day 3','Day 4','Day 5'];
 
 // active bracket tab per game
 var activeBracket = {};
@@ -642,6 +650,11 @@ var activeBracket = {};
 function buildKnockoutEditor(g, gs) {
   var isMulti = MULTI_BRACKET_GAMES.indexOf(g.id) !== -1;
   var brackets = gs.brackets || [{ name:'Bracket A', rounds:[] }];
+  var rulesUrl2 = gs.rulesUrl||'';
+  var rulesHtml = '<div class="admin-section-label">📄 Rules Document</div>'
+    +'<div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;"><input style="flex:1;background:rgba(255,255,255,.05);border:1px solid var(--border-solid);border-radius:3px;color:var(--white);font-size:13px;font-family:Inter,sans-serif;padding:7px 12px;outline:none;" placeholder="Paste Google Drive / OneDrive link to rules PDF" value="'+esc(rulesUrl2)+'" oninput="updateRules(\''+g.id+'\',this.value)">'
+    +(rulesUrl2?'<a href="'+esc(rulesUrl2)+'" target="_blank" style="font-size:12px;color:var(--teal);white-space:nowrap;">View →</a>':'')
+    +'</div>';
 
   // ensure activeBracket initialised
   if(activeBracket[g.id] === undefined) activeBracket[g.id] = 0;
@@ -700,7 +713,7 @@ function buildKnockoutEditor(g, gs) {
       +'<button class="add-row-btn" onclick="addMatchB(\''+g.id+'\','+bi+','+ri+')">+ Add match</button>';
   }).join('');
 
-  return (isMulti ? tabsHtml : '') + rHtml + buildFinalEditor(g, gs);
+  return rulesHtml + (isMulti ? tabsHtml : '') + rHtml + buildFinalEditor(g, gs);
 }
 
 async function switchBracket(gid, bi) {
@@ -710,7 +723,7 @@ async function switchBracket(gid, bi) {
   document.getElementById('arrow-'+gid).textContent='⌄';
 }
 async function addBracket(gid) {
-  var s = loadState();
+  var s = await loadState();
   if(!s[gid]) s[gid]={};
   if(!s[gid].brackets) s[gid].brackets=[{name:'Bracket A',rounds:[]}];
   var letters='ABCDEFGH';
@@ -723,7 +736,7 @@ async function addBracket(gid) {
   document.getElementById('arrow-'+gid).textContent='⌄';
 }
 async function delBracket(gid, bi) {
-  var s = loadState();
+  var s = await loadState();
   s[gid].brackets.splice(bi,1);
   if(!s[gid].brackets.length) s[gid].brackets=[{name:'Bracket A',rounds:[]}];
   saveState(s);
@@ -734,7 +747,7 @@ async function delBracket(gid, bi) {
 }
 
 function updateMatchB(gid, bi, ri, mi, key, val) {
-  var s = loadState();
+  var s = _cache || {};
   if(!s[gid]) s[gid]={};
   if(!s[gid].brackets) s[gid].brackets=[{name:'Bracket A',rounds:[]}];
   var br=s[gid].brackets[bi];
@@ -746,7 +759,7 @@ function updateMatchB(gid, bi, ri, mi, key, val) {
   runConflictCheck();
 }
 async function addMatchB(gid, bi, ri) {
-  var s = loadState();
+  var s = await loadState();
   if(!s[gid]) s[gid]={};
   if(!s[gid].brackets) s[gid].brackets=[{name:'Bracket A',rounds:[]}];
   var br=s[gid].brackets[bi];
@@ -759,7 +772,7 @@ async function addMatchB(gid, bi, ri) {
   document.getElementById('arrow-'+gid).textContent='⌄';
 }
 async function delMatchB(gid, bi, ri, mi) {
-  var s = loadState();
+  var s = await loadState();
   s[gid].brackets[bi].rounds[ri].splice(mi,1);
   saveState(s);
   await buildAdminPanel();
@@ -778,7 +791,7 @@ function delMatch(gid, ri, mi) { delMatchB(gid, 0, ri, mi); }
 // ── CONFLICT DETECTION ───────────────────────────────────────────────────────
 // Build a map: playerName → [{game, bracket, round, matchIdx, day}]
 function buildPlayerSchedule() {
-  var s = loadState();
+  var s = _cache || {};
   var schedule = {}; // player -> [{game,bracket,round,day,match}]
 
   GAMES.forEach(function(g){
@@ -803,7 +816,7 @@ function buildPlayerSchedule() {
 }
 
 function detectMatchConflict(gid, bi, ri, mi) {
-  var s = loadState();
+  var s = _cache || {};
   var gs = s[gid]||{};
   var brackets = gs.brackets || (gs.rounds ? [{name:'Main',rounds:gs.rounds}] : [{name:'Main',rounds:[]}]);
   var br = brackets[bi]||{rounds:[]};
@@ -864,6 +877,40 @@ function runConflictCheck(s) {
     }
   }
 
+  // Check concurrent games per day (max 4 recommended)
+  var s2 = _cache || {};
+  var cfg2 = (s2._cfg)||{};
+  var concurrentWarnings = [];
+  var gamesByDay = {};
+  GAMES.forEach(function(g){
+    var gs = s2[g.id]||{};
+    var brackets = gs.brackets || (gs.rounds ? [{name:'Main',rounds:gs.rounds}] : []);
+    brackets.forEach(function(br){
+      (br.rounds||[]).forEach(function(round){
+        (round||[]).forEach(function(m){
+          var day = m.day||'Day 1';
+          if(!gamesByDay[day]) gamesByDay[day]=new Set();
+          gamesByDay[day].add(g.name);
+        });
+      });
+    });
+  });
+  Object.keys(gamesByDay).forEach(function(day){
+    var count = gamesByDay[day].size;
+    if(count > 4) {
+      concurrentWarnings.push(day+': '+count+' games running simultaneously ('+Array.from(gamesByDay[day]).join(', ')+')');
+    }
+  });
+
+  if(concurrentWarnings.length > 0) {
+    var warnHtml = '<div style="background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);border-radius:8px;padding:16px 20px;margin-bottom:20px;">'
+      +'<div style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:8px;">⚠ Concurrent Games Warning</div>'
+      + concurrentWarnings.map(function(w){ return '<div style="font-size:13px;color:var(--silver);padding:4px 0;">'+esc(w)+'</div>'; }).join('')
+      +'<div style="font-size:12px;color:var(--muted);margin-top:8px;">Recommendation: max 4 games running at the same time. Reassign matches to different days to spread the load.</div>'
+      +'</div>';
+    if(el) el.innerHTML = (el.innerHTML||'') + warnHtml;
+  }
+
   // update tab label
   var tabs=document.querySelectorAll('.tab');
   var tabIdx=TAB_ORDER.indexOf('conflicts');
@@ -885,9 +932,15 @@ function buildFinalEditor(g, gs) {
     +'</div>';
 }
 function updateFinal(gid, key, val) {
-  var s = loadState();
+  var s = _cache || {};
   if(!s[gid]) s[gid]={};
   s[gid][key]=val;
+  saveState(s);
+}
+function updateRules(gid, val) {
+  var s = _cache || {};
+  if(!s[gid]) s[gid]={};
+  s[gid].rulesUrl = val;
   saveState(s);
 }
 
@@ -956,7 +1009,8 @@ function renderStandings(s) {
         +'</div>';
     }
 
-    card.innerHTML = '<div class="tracker-header"><span class="tracker-title">'+g.emoji+' '+g.name+'</span><span class="tracker-format '+fmtClass+'">'+fmt+'</span></div>'
+    var rulesLink = gs.rulesUrl ? '<a href="'+esc(gs.rulesUrl)+'" target="_blank" style="font-size:11px;color:var(--teal);text-decoration:none;">📄 Rules</a>' : '';
+    card.innerHTML = '<div class="tracker-header"><span class="tracker-title">'+g.emoji+' '+g.name+'</span><div style="display:flex;align-items:center;gap:10px;">'+rulesLink+'<span class="tracker-format '+fmtClass+'">'+fmt+'</span></div></div>'
       +'<div class="tracker-body">'+bodyHtml+'</div>';
     container.appendChild(card);
   });
@@ -999,7 +1053,7 @@ function fmtTime(mins) {
 }
 
 function populateTimeSelects() {
-  var s = loadState();
+  var s = _cache || {};
   var cfg = s._cfg || {};
   var savedStart = cfg.start || 15*60; // 3 PM default
   var savedEnd   = cfg.end   || 18*60; // 6 PM default
@@ -1029,7 +1083,7 @@ function populateTimeSelects() {
   document.getElementById('cfg-slot').value = savedSlot;
 
   // dates
-  ['1','2','3','4'].forEach(function(d){
+  ['1','2','3','4','5'].forEach(function(d){
     var el = document.getElementById('date-'+d);
     if(el) el.value = (cfg['date'+d]||'');
   });
@@ -1038,6 +1092,7 @@ function populateTimeSelects() {
 }
 
 function saveCfg() {
+  var s = _cache || {};
   var selStart = document.getElementById('cfg-start');
   var selEnd   = document.getElementById('cfg-end');
   var selSlot  = document.getElementById('cfg-slot');
@@ -1046,12 +1101,11 @@ function saveCfg() {
   var end   = parseInt(selEnd.value);
   var slot  = parseInt(selSlot.value);
 
-  var s = loadState();
   if(!s._cfg) s._cfg = {};
   s._cfg.start = start;
   s._cfg.end   = end;
   s._cfg.slot  = slot;
-  ['1','2','3','4'].forEach(function(d){
+  ['1','2','3','4','5'].forEach(function(d){
     var el = document.getElementById('date-'+d);
     if(el) s._cfg['date'+d] = el.value;
   });
@@ -1124,6 +1178,16 @@ var SCHEDULE_DAYS = [
     ]
   },
   {
+    label: 'Day 5 — Overflow / Finals',
+    isFinals: true,
+    optional: true,
+    rows: [
+      {type:'wrap',  game:'All',          stage:'Day 5 Kickoff — Contingent Matches', notes:'Only if required from Days 1–4', slotOffset:0, slotLen:1},
+      {type:'final', game:'TBD',          stage:'🏆 Overflow Final(s)',                notes:'As needed by leads',             slotOffset:1, slotLen:4},
+      {type:'wrap',  game:'All',          stage:'🎉 Awards Ceremony (if Day 5 finals)', notes:'If finals moved here',          slotOffset:5, slotLen:3},
+    ]
+  },
+  {
     label: 'Day 4 — Finals Day',
     isFinals: true,
     rows: [
@@ -1138,7 +1202,7 @@ var SCHEDULE_DAYS = [
 ];
 
 function renderSchedule() {
-  var s = loadState();
+  var s = _cache || {};
   var cfg = s._cfg || {};
   var start = cfg.start || null;
   var end   = cfg.end   || null;
@@ -1172,8 +1236,14 @@ function renderSchedule() {
     return fmtTime(s2) + '–' + fmtTime(e2);
   }
 
-  container.innerHTML = SCHEDULE_DAYS.map(function(day, di) {
-    var dateStr = (cfg['date'+(di+1)] || 'Date TBC');
+  container.innerHTML = SCHEDULE_DAYS.filter(function(day, di) {
+    // Skip Day 5 if no date is set for it
+    if(day.optional && !cfg['date'+(di+1)]) return false;
+    return true;
+  }).map(function(day, di) {
+    // recalculate real day index since we may have filtered
+    var realDi = SCHEDULE_DAYS.indexOf(day);
+    var dateStr = (cfg['date'+(realDi+1)] || 'Date TBC');
     var rows = day.rows.map(function(r) {
       var tr_class = r.type==='wrap' ? 'wrap-row' : r.type==='final' ? 'final-row' : '';
       var t = timeRange(r.slotOffset, r.slotLen);
@@ -1185,7 +1255,7 @@ function renderSchedule() {
         +'</tr>';
     }).join('');
     return '<div class="day-block">'
-      +'<div class="day-label">'+day.label+' <span class="day-date">'+esc(dateStr)+'</span></div>'
+      +'<div class="day-label">'+day.label+(day.optional?'<span style="font-size:13px;color:var(--amber);font-family:Inter;font-weight:500;margin-left:12px;">Optional</span>':'')+' <span class="day-date">'+esc(dateStr)+'</span></div>'
       +'<table class="schedule-table"><thead><tr><th>Time</th><th>Game</th><th>Stage</th><th>Notes</th></tr></thead>'
       +'<tbody>'+rows+'</tbody></table>'
       +'</div>';
