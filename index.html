@@ -249,6 +249,7 @@
   <button class="tab" onclick="switchTab('schedule')">Schedule</button>
   <button class="tab" onclick="switchTab('standings')">Standings</button>
   <button class="tab" onclick="switchTab('leaderboard')">Leaderboard</button>
+  <button class="tab" onclick="switchTab('registrations')">Registrations</button>
   <button class="tab" onclick="switchTab('admin')">Leads Only</button>
   <button class="tab" onclick="switchTab('conflicts')">⚠ Conflicts</button>
 </nav>
@@ -401,6 +402,67 @@
 
 <div id="save-toast">✓ Changes saved and published</div>
 
+<!-- REGISTRATIONS TAB -->
+<section class="section" id="tab-registrations">
+  <div class="section-title">Registrations</div>
+  <p class="section-sub" id="reg-sub">Loading registration data from Google Forms…</p>
+
+  <!-- Lock if not admin -->
+  <div id="reg-lock" style="display:none;">
+    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:32px;text-align:center;max-width:400px;margin:0 auto;">
+      <div style="font-size:36px;margin-bottom:16px;">🔒</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:8px;">Leads Only</div>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:20px;">Enter the leads password to view registrations and assign players.</p>
+      <input type="password" id="reg-pw-input" placeholder="Enter password" style="width:100%;padding:12px 16px;background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;margin-bottom:10px;outline:none;" onkeydown="if(event.key==='Enter')checkRegPw()">
+      <div class="err" id="reg-pw-err" style="min-height:18px;font-size:13px;color:#f87171;margin-bottom:10px;"></div>
+      <button class="btn-primary" style="width:100%;" onclick="checkRegPw()">Unlock</button>
+    </div>
+  </div>
+
+  <div id="reg-panel" style="display:none;">
+    <!-- Summary bar -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:32px;" id="reg-summary"></div>
+
+    <!-- Game filter tabs -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;align-items:center;">
+      <span style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-right:4px;">Filter:</span>
+      <button class="bracket-tab active" onclick="filterReg('all')" id="regfilter-all">All</button>
+      <button class="bracket-tab" onclick="filterReg('Jenga')" id="regfilter-Jenga">🗼 Jenga</button>
+      <button class="bracket-tab" onclick="filterReg('Chess')" id="regfilter-Chess">♟️ Chess</button>
+      <button class="bracket-tab" onclick="filterReg('Darts')" id="regfilter-Darts">🎯 Darts</button>
+      <button class="bracket-tab" onclick="filterReg('PS5 Tekken')" id="regfilter-PS5 Tekken">🥊 Tekken</button>
+      <button class="bracket-tab" onclick="filterReg('PS5 FIFA')" id="regfilter-PS5 FIFA">⚽ FIFA</button>
+      <button class="bracket-tab" onclick="filterReg('Playing Cards')" id="regfilter-Playing Cards">🃏 Cards</button>
+      <button class="bracket-tab" onclick="filterReg('UNO')" id="regfilter-UNO">🎴 UNO</button>
+      <button class="bracket-tab" onclick="filterReg('Ludo')" id="regfilter-Ludo">🎲 Ludo</button>
+      <button class="bracket-tab" onclick="filterReg('Sequence')" id="regfilter-Sequence">🧩 Sequence</button>
+      <button class="bracket-tab" onclick="filterReg('Table Tennis')" id="regfilter-Table Tennis">🏓 TT</button>
+    </div>
+
+    <!-- Conflict warnings -->
+    <div id="reg-conflicts" style="margin-bottom:20px;"></div>
+
+    <!-- Player table -->
+    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+      <table style="width:100%;border-collapse:collapse;" id="reg-table">
+        <thead>
+          <tr style="border-bottom:1px solid var(--border);">
+            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Name</th>
+            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Dept</th>
+            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Game 1</th>
+            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Game 2</th>
+            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Game 3</th>
+            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Duo Partner</th>
+            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Action</th>
+          </tr>
+        </thead>
+        <tbody id="reg-tbody"></tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px;font-size:12px;color:var(--muted);">Last synced: <span id="reg-sync-time">—</span> · <button onclick="loadRegistrations()" style="background:none;border:none;color:var(--teal);font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;">Refresh ↻</button></p>
+  </div>
+</section>
+
 <!-- CONFLICTS TAB (public — no login needed, leads share this view) -->
 <section class="section" id="tab-conflicts">
   <div class="section-title">⚠ Schedule Conflicts</div>
@@ -416,6 +478,7 @@
 // ── CONFIG ──────────────────────────────────────────────────────────────────
 var ADMIN_PASSWORD = "SportsFest2025"; // ← change this before deploying
 
+var SHEET_ID = "1T_AyA18wE-BOABU4_kC-jdRPg8KyJZ4oOIKR-kOQztA";
 var SUPABASE_URL = "https://wqhsejlanpgleemkorft.supabase.co";
 var SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndxaHNlamxhbnBnbGVlbWtvcmZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMwNTQ2NDEsImV4cCI6MjA5ODYzMDY0MX0.FBi_TlxDR_HopyiPdrclaefYB5sk_VYMsu5C5QN1sUc";
 var SB_HEADERS = {
@@ -504,7 +567,7 @@ function stopPolling() {
 }
 
 // ── TAB SWITCHING ────────────────────────────────────────────────────────────
-var TAB_ORDER = ["games","register","schedule","standings","leaderboard","admin","conflicts"];
+var TAB_ORDER = ["games","register","schedule","standings","leaderboard","registrations","admin","conflicts"];
 async function switchTab(name) {
   document.querySelectorAll(".tab").forEach(function(t,i){ t.classList.toggle("active", TAB_ORDER[i]===name); });
   document.querySelectorAll(".section").forEach(function(s){ s.classList.remove("active"); });
@@ -515,6 +578,7 @@ async function switchTab(name) {
   if(name==="standings"||name==="leaderboard") renderPublic(s);
   if(name==="schedule") renderSchedule();
   if(name==="conflicts") runConflictCheck(s);
+  if(name==="registrations") { showRegTab(); }
   if(name==="standings"||name==="leaderboard"||name==="conflicts") startPolling();
   else if(name==="admin") stopPolling();
 }
@@ -1260,6 +1324,172 @@ function renderSchedule() {
       +'<tbody>'+rows+'</tbody></table>'
       +'</div>';
   }).join('');
+}
+
+// ── REGISTRATIONS ────────────────────────────────────────────────────────────
+var _regData = [];
+var _regFilter = 'all';
+var _regAuthed = false;
+
+function checkRegPw() {
+  var v = document.getElementById('reg-pw-input').value;
+  if(v === ADMIN_PASSWORD) {
+    _regAuthed = true;
+    document.getElementById('reg-lock').style.display = 'none';
+    document.getElementById('reg-panel').style.display = 'block';
+    loadRegistrations();
+  } else {
+    document.getElementById('reg-pw-err').textContent = 'Incorrect password.';
+  }
+}
+
+function showRegTab() {
+  if(_regAuthed) {
+    document.getElementById('reg-lock').style.display = 'none';
+    document.getElementById('reg-panel').style.display = 'block';
+    loadRegistrations();
+  } else {
+    document.getElementById('reg-lock').style.display = 'block';
+    document.getElementById('reg-panel').style.display = 'none';
+  }
+}
+
+async function loadRegistrations() {
+  var sub = document.getElementById('reg-sub');
+  if(sub) sub.textContent = 'Syncing with Google Forms…';
+  try {
+    var url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=Form%20Responses%201';
+    var res = await fetch(url);
+    if(!res.ok) throw new Error('Sheet fetch failed');
+    var csv = await res.text();
+    _regData = parseCSV(csv);
+    var s = _cache || {};
+    s._regCount = _regData.length;
+    saveState(s);
+    document.getElementById('stat-players').textContent = _regData.length || '—';
+    if(sub) sub.textContent = _regData.length + ' registrations loaded from Google Forms.';
+    document.getElementById('reg-sync-time').textContent = new Date().toLocaleTimeString();
+    renderRegistrations();
+  } catch(e) {
+    console.error('Registration load error:', e);
+    if(sub) sub.textContent = 'Could not load — make sure the Google Sheet is set to "Anyone with the link can view".';
+  }
+}
+
+function parseCSV(csv) {
+  var lines = csv.trim().split('\n');
+  if(lines.length < 2) return [];
+  var results = [];
+  for(var i = 1; i < lines.length; i++) {
+    var cols = splitCSVLine(lines[i]);
+    if(!cols[1]) continue;
+    results.push({ timestamp:cols[0]||'', name:cols[1]||'', dept:cols[2]||'', game1:cols[3]||'', game2:cols[4]||'', game3:cols[5]||'', partner:cols[6]||'' });
+  }
+  return results;
+}
+
+function splitCSVLine(line) {
+  var result = [], cur = '', inQuote = false;
+  for(var i = 0; i < line.length; i++) {
+    var c = line[i];
+    if(c === '"') { if(inQuote && line[i+1]==='"'){ cur+='"'; i++; } else inQuote=!inQuote; }
+    else if(c === ',' && !inQuote) { result.push(cur.trim()); cur = ''; }
+    else cur += c;
+  }
+  result.push(cur.trim());
+  return result;
+}
+
+function filterReg(game) {
+  _regFilter = game;
+  document.querySelectorAll('[id^="regfilter-"]').forEach(function(b){ b.classList.remove('active'); });
+  var btn = document.getElementById('regfilter-' + game);
+  if(btn) btn.classList.add('active');
+  renderRegistrations();
+}
+
+function renderRegistrations() {
+  if(!_regData.length) return;
+  var GAME_NAMES = ['Jenga','Chess','Darts','PS5 Tekken','PS5 FIFA','Playing Cards','UNO','Ludo','Sequence','Table Tennis'];
+  var gameCounts = {};
+  GAME_NAMES.forEach(function(g){ gameCounts[g]=0; });
+  _regData.forEach(function(r){
+    [r.game1,r.game2,r.game3].forEach(function(g){ if(g&&g!=='None'&&gameCounts[g]!==undefined) gameCounts[g]++; });
+  });
+
+  var sumEl = document.getElementById('reg-summary');
+  if(sumEl) sumEl.innerHTML = GAME_NAMES.map(function(g){
+    return '<div style="background:var(--card-bg);border:1px solid var(--border);border-radius:6px;padding:12px 16px;">'
+      +'<div style="font-size:22px;font-weight:700;color:var(--teal);font-family:\'Bebas Neue\',sans-serif;">'+gameCounts[g]+'</div>'
+      +'<div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">'+g+'</div></div>';
+  }).join('');
+
+  var ps5both = _regData.filter(function(r){
+    var g=[r.game1,r.game2,r.game3]; return g.indexOf('PS5 Tekken')!==-1 && g.indexOf('PS5 FIFA')!==-1;
+  });
+  var conflEl = document.getElementById('reg-conflicts');
+  if(conflEl) conflEl.innerHTML = ps5both.length ? '<div style="background:rgba(127,29,29,.25);border:1px solid rgba(248,113,113,.3);border-radius:6px;padding:14px 18px;margin-bottom:16px;"><div style="font-size:13px;font-weight:700;color:#fca5a5;margin-bottom:6px;">⚠ PS5 Conflict — signed up for both Tekken AND FIFA</div>'+ps5both.map(function(r){ return '<div style="font-size:13px;color:#fca5a5;">'+esc(r.name)+' ('+esc(r.dept)+')</div>'; }).join('')+'<div style="font-size:12px;color:var(--muted);margin-top:6px;">Contact these players to choose one.</div></div>' : '';
+
+  var filtered = _regFilter==='all' ? _regData : _regData.filter(function(r){ return r.game1===_regFilter||r.game2===_regFilter||r.game3===_regFilter; });
+  var tbody = document.getElementById('reg-tbody');
+  if(!tbody) return;
+  if(!filtered.length) { tbody.innerHTML='<tr><td colspan="7" style="padding:24px 16px;color:var(--muted);font-size:14px;text-align:center;">No registrations for this game yet.</td></tr>'; return; }
+
+  tbody.innerHTML = filtered.map(function(r,i){
+    var bg = i%2===0?'':'background:rgba(255,255,255,.02);';
+    function badge(g,teal){ return g&&g!=='None'?'<span style="background:'+(teal?'rgba(0,212,170,.12)':'rgba(255,255,255,.06)')+';color:'+(teal?'var(--teal)':'var(--silver)')+';font-size:11px;font-weight:600;padding:2px 8px;border-radius:3px;">'+esc(g)+'</span>':'<span style="color:var(--muted);font-size:12px;">—</span>'; }
+    return '<tr style="border-bottom:1px solid rgba(255,255,255,.04);'+bg+'">'
+      +'<td style="padding:12px 16px;font-size:14px;font-weight:600;color:var(--white);">'+esc(r.name)+'</td>'
+      +'<td style="padding:12px 16px;font-size:13px;color:var(--muted);">'+esc(r.dept)+'</td>'
+      +'<td style="padding:12px 16px;">'+badge(r.game1,true)+'</td>'
+      +'<td style="padding:12px 16px;">'+badge(r.game2,false)+'</td>'
+      +'<td style="padding:12px 16px;">'+badge(r.game3,false)+'</td>'
+      +'<td style="padding:12px 16px;">'+(r.partner?'<span style="color:var(--amber);font-size:13px;">'+esc(r.partner)+'</span>':'<span style="color:var(--muted);font-size:12px;">—</span>')+'</td>'
+      +'<td style="padding:12px 16px;"><button onclick="addPlayerFromReg(\''+r.name.replace(/'/g,"\\'")+'\')" style="font-size:11px;font-weight:600;padding:4px 12px;background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.3);border-radius:3px;color:var(--teal);cursor:pointer;">+ Add to game</button></td>'
+      +'</tr>';
+  }).join('');
+}
+
+function addPlayerFromReg(name) {
+  var modal = document.createElement('div');
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:flex;align-items:center;justify-content:center;';
+  modal.innerHTML = '<div style="background:var(--navy2);border:1px solid var(--border);border-radius:8px;padding:28px;max-width:360px;width:90%;max-height:80vh;overflow-y:auto;">'
+    +'<div style="font-family:\'Bebas Neue\',sans-serif;font-size:24px;margin-bottom:4px;">Add '+esc(name)+'</div>'
+    +'<p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Select which game to add this player to:</p>'
+    +'<div style="display:flex;flex-direction:column;gap:8px;">'
+    +GAMES.map(function(g){ return '<button onclick="confirmAddPlayer(\''+g.id+'\',\''+name.replace(/'/g,"\\'")+'\')" style="padding:10px 14px;background:var(--card-bg);border:1px solid var(--border);border-radius:4px;color:var(--white);font-size:13px;font-family:\'Inter\',sans-serif;cursor:pointer;text-align:left;" onmouseover="this.style.borderColor=\'var(--teal)\'" onmouseout="this.style.borderColor=\'var(--border)\'">'+g.emoji+' '+g.name+'</button>'; }).join('')
+    +'</div><button onclick="document.querySelectorAll(\'div[style*=\\\"position:fixed\\\"]\').forEach(function(m){m.remove()})" style="margin-top:14px;width:100%;padding:8px;background:none;border:1px solid var(--border-solid);border-radius:4px;color:var(--muted);font-size:13px;cursor:pointer;font-family:\'Inter\',sans-serif;">Cancel</button>'
+    +'</div>';
+  document.body.appendChild(modal);
+  modal.addEventListener('click', function(e){ if(e.target===modal) modal.remove(); });
+}
+
+async function confirmAddPlayer(gid, name) {
+  document.querySelectorAll('div[style*="position:fixed"]').forEach(function(m){ m.remove(); });
+  var s = _cache || {};
+  var g = GAMES.find(function(x){ return x.id===gid; });
+  if(!g) return;
+  if(!s[gid]) s[gid]={};
+  if(g.format==='league') {
+    if(!s[gid].players) s[gid].players=[];
+    var exists = s[gid].players.some(function(p){ return p.name&&p.name.toLowerCase()===name.toLowerCase(); });
+    if(!exists) s[gid].players.push({name:name,md1:'—',md2:'—',md3:'—'});
+  } else {
+    if(!s[gid].brackets) s[gid].brackets=[{name:'Bracket A',rounds:[]}];
+    var br=s[gid].brackets[0];
+    if(!br.rounds) br.rounds=[];
+    if(!br.rounds[0]) br.rounds[0]=[];
+    var placed=false;
+    for(var mi=0;mi<br.rounds[0].length;mi++){
+      var m=br.rounds[0][mi];
+      if(!m.p1){m.p1=name;placed=true;break;}
+      if(!m.p2){m.p2=name;placed=true;break;}
+    }
+    if(!placed) br.rounds[0].push({p1:name,p2:'',winner:'',day:'Day 1'});
+  }
+  saveState(s);
+  var toast=document.getElementById('save-toast');
+  if(toast){toast.textContent='✓ '+name+' added to '+g.name;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');toast.textContent='✓ Synced to all devices';},2500);}
 }
 
 // ── Init
