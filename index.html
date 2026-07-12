@@ -347,7 +347,6 @@
     <div class="admin-bar">
       <h2>Leads Panel</h2>
       <div class="admin-bar-right">
-        <span id="sync-status" style="font-size:12px;"></span>
         <span class="admin-tag">✓ Authenticated</span>
         <button class="btn-danger btn-sm" onclick="lockAdmin()">Lock</button>
       </div>
@@ -479,13 +478,7 @@
 var ADMIN_PASSWORD = "SportsFest2025"; // ← change this before deploying
 
 var SHEET_ID = "1T_AyA18wE-BOABU4_kC-jdRPg8KyJZ4oOIKR-kOQztA";
-var SUPABASE_URL = "https://wqhsejlanpgleemkorft.supabase.co";
-var SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndxaHNlamxhbnBnbGVlbWtvcmZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMwNTQ2NDEsImV4cCI6MjA5ODYzMDY0MX0.FBi_TlxDR_HopyiPdrclaefYB5sk_VYMsu5C5QN1sUc";
-var SB_HEADERS = {
-  "apikey": SUPABASE_KEY,
-  "Authorization": "Bearer " + SUPABASE_KEY,
-  "Content-Type": "application/json"
-};
+// localStorage only — no backend needed
 
 var GAMES = [
   { id:"uno",       name:"UNO",           emoji:"🎴", format:"league",   type:"Individual" },
@@ -500,7 +493,7 @@ var GAMES = [
   { id:"tt",        name:"Table Tennis",  emoji:"🏓", format:"knockout", type:"Duo 2v2"    },
 ];
 
-// ── STATE — Supabase-backed, localStorage fallback ───────────────────────────
+// ── STATE — localStorage ─────────────────────────────────────────────────────
 var _cache = null;
 var _syncTimer = null;
 
@@ -511,60 +504,22 @@ function showSyncStatus(msg, color) {
 
 async function loadState() {
   if(_cache) return _cache;
-  try {
-    var res = await fetch(SUPABASE_URL + "/rest/v1/game_state?id=eq.main&select=data", { headers: SB_HEADERS });
-    if(res.ok) {
-      var rows = await res.json();
-      if(rows && rows[0] && rows[0].data) {
-        _cache = rows[0].data;
-        try { localStorage.setItem('ninjagames_bk', JSON.stringify(_cache)); } catch(e){}
-        return _cache;
-      }
-    }
-  } catch(e) { console.warn('Supabase load failed, using local fallback'); }
-  try { _cache = JSON.parse(localStorage.getItem('ninjagames_bk') || '{}'); } catch(e) { _cache = {}; }
+  try { _cache = JSON.parse(localStorage.getItem('ninjagames_v9') || '{}'); }
+  catch(e) { _cache = {}; }
   return _cache;
-}
-
-async function pushState(s) {
-  _cache = s;
-  try { localStorage.setItem('ninjagames_bk', JSON.stringify(s)); } catch(e){}
-  showSyncStatus('Saving…', 'var(--amber)');
-  try {
-    var res = await fetch(SUPABASE_URL + "/rest/v1/game_state", {
-      method: "POST",
-      headers: Object.assign({}, SB_HEADERS, {"Prefer":"resolution=merge-duplicates,return=minimal"}),
-      body: JSON.stringify({ id: "main", data: s, updated_at: new Date().toISOString() })
-    });
-    showSyncStatus(res.ok ? '✓ Synced to all devices' : '⚠ Sync failed — saved locally', res.ok ? 'var(--teal)' : '#f87171');
-    if(res.ok) setTimeout(function(){ showSyncStatus('',''); }, 3000);
-  } catch(e) {
-    showSyncStatus('⚠ Offline — saved locally', '#f87171');
-  }
 }
 
 function saveState(s) {
   _cache = s;
-  try { localStorage.setItem('ninjagames_bk', JSON.stringify(s)); } catch(e){}
-  clearTimeout(_syncTimer);
-  _syncTimer = setTimeout(function(){ pushState(s); }, 700);
+  try { localStorage.setItem('ninjagames_v9', JSON.stringify(s)); } catch(e){}
+  showSyncStatus('✓ Saved', 'var(--teal)');
+  setTimeout(function(){ showSyncStatus('',''); }, 2000);
 }
 
-// Poll every 20s so public viewers see live updates
-var _poll = null;
-function startPolling() {
-  if(_poll) return;
-  _poll = setInterval(async function(){
-    _cache = null;
-    var s = await loadState();
-    renderPublic(s);
-    runConflictCheck(s);
-  }, 20000);
-}
-function stopPolling() {
-  clearInterval(_poll);
-  _poll = null;
-}
+async function pushState(s) { saveState(s); }
+
+function startPolling() {}
+function stopPolling() {}
 
 // ── TAB SWITCHING ────────────────────────────────────────────────────────────
 var TAB_ORDER = ["games","register","schedule","standings","leaderboard","registrations","admin","conflicts"];
@@ -1356,24 +1311,41 @@ function showRegTab() {
 
 async function loadRegistrations() {
   var sub = document.getElementById('reg-sub');
-  if(sub) sub.textContent = 'Syncing with Google Forms…';
-  try {
-    var url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=Form%20Responses%201';
-    var res = await fetch(url);
-    if(!res.ok) throw new Error('Sheet fetch failed');
-    var csv = await res.text();
-    _regData = parseCSV(csv);
-    var s = _cache || {};
-    s._regCount = _regData.length;
-    saveState(s);
-    document.getElementById('stat-players').textContent = _regData.length || '—';
-    if(sub) sub.textContent = _regData.length + ' registrations loaded from Google Forms.';
-    document.getElementById('reg-sync-time').textContent = new Date().toLocaleTimeString();
-    renderRegistrations();
-  } catch(e) {
-    console.error('Registration load error:', e);
-    if(sub) sub.textContent = 'Could not load — make sure the Google Sheet is set to "Anyone with the link can view".';
+  if(sub) sub.textContent = 'Loading registrations…';
+  // Try multiple URL formats for Google Sheets CSV export
+  var urls = [
+    'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv',
+    'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv',
+    'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv&gid=0',
+  ];
+  var csv = null;
+  for(var i = 0; i < urls.length; i++) {
+    try {
+      var res = await fetch(urls[i]);
+      if(res.ok) {
+        var text = await res.text();
+        // Make sure we got actual CSV data, not an HTML error page
+        if(text && text.length > 10 && text.indexOf('<html') === -1) {
+          csv = text;
+          break;
+        }
+      }
+    } catch(e) { continue; }
   }
+  if(!csv) {
+    if(sub) sub.textContent = '⚠ Could not load registrations. Make sure the Google Sheet is shared as "Anyone with the link — Viewer".';
+    return;
+  }
+  _regData = parseCSV(csv);
+  var s = _cache || {};
+  s._regCount = _regData.length;
+  saveState(s);
+  var countEl = document.getElementById('stat-players');
+  if(countEl) countEl.textContent = _regData.length || '—';
+  if(sub) sub.textContent = _regData.length + ' registration' + (_regData.length !== 1 ? 's' : '') + ' loaded · Last synced: ' + new Date().toLocaleTimeString();
+  var syncEl = document.getElementById('reg-sync-time');
+  if(syncEl) syncEl.textContent = new Date().toLocaleTimeString();
+  renderRegistrations();
 }
 
 function parseCSV(csv) {
