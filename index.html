@@ -249,9 +249,7 @@
   <button class="tab" onclick="switchTab('schedule')">Schedule</button>
   <button class="tab" onclick="switchTab('standings')">Standings</button>
   <button class="tab" onclick="switchTab('leaderboard')">Leaderboard</button>
-  <button class="tab" onclick="switchTab('registrations')">Registrations</button>
-  <button class="tab" onclick="switchTab('admin')">Leads Only</button>
-  <button class="tab" onclick="switchTab('conflicts')">⚠ Conflicts</button>
+  <button class="tab" onclick="switchTab('admin')">Leads Panel</button>
 </nav>
 
 <!-- GAMES -->
@@ -302,7 +300,7 @@
 <section class="section" id="tab-schedule">
   <div class="section-title">Schedule</div>
   <p class="section-sub" id="schedule-sub">Times are set by leads. Check back once confirmed.</p>
-  <div id="schedule-days"><div style="text-align:center;padding:48px 0;color:var(--muted);font-size:14px;">⏳ Schedule not yet set — leads will configure times in the Leads Only panel.</div></div>
+  <div id="schedule-days"><div style="text-align:center;padding:48px 0;color:var(--muted);font-size:14px;">⏳ Schedule not yet set — leads will configure times in the Leads Panel.</div></div>
 </section>
 
 <!-- STANDINGS (public read-only, populated by JS from localStorage) -->
@@ -313,7 +311,7 @@
     <div class="standings-icon">📊</div>
     <div>
       <h3>How standings work</h3>
-      <p>Game leads update scores after each matchday via the Leads Only panel. League games (UNO, Ludo, Sequence): Win = 3 pts, Loss = 0 pts. Knockout games show bracket progress. Standings refresh automatically when leads save.</p>
+      <p>Game leads update scores after each matchday via the Leads Panel. League games (UNO, Ludo, Sequence): Win = 3 pts, Loss = 0 pts. Knockout games show bracket progress. Standings refresh automatically when leads save.</p>
     </div>
   </div>
   <div class="game-tracker-grid" id="public-standings"></div>
@@ -330,13 +328,13 @@
   <p style="margin-top:24px;font-size:13px;color:var(--muted);">Winners updated by leads after each game concludes. Full leaderboard finalized end of Day 4.</p>
 </section>
 
-<!-- ADMIN TAB -->
+<!-- ADMIN / LEADS PANEL (unified: registrations + scheduling + conflicts + results, one workflow, one login) -->
 <section class="section" id="tab-admin">
   <!-- Lock screen -->
   <div id="admin-lock">
     <div class="lock-icon">🔒</div>
-    <h2>Leads Only</h2>
-    <p>Enter the shared leads password to access score entry and results management.</p>
+    <h2>Leads Panel</h2>
+    <p>Enter the shared leads password to manage registrations, scheduling, scores and conflicts — all in one place.</p>
     <input type="password" id="pw-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPw()">
     <div class="err" id="pw-err"></div>
     <button class="btn-primary" style="width:100%;justify-content:center;" onclick="checkPw()">Unlock Panel</button>
@@ -351,7 +349,10 @@
         <button class="btn-danger btn-sm" onclick="lockAdmin()">Lock</button>
       </div>
     </div>
-    <p style="color:var(--muted);font-size:14px;margin-bottom:32px;">Enter standings and results below. Click <strong style="color:var(--white)">Save All Changes</strong> to publish to the public standings and leaderboard. All data is saved in the browser — share the updated HTML file to sync across devices.</p>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:28px;">One workflow: pull registrations, assign players to a game <strong style="color:var(--white)">and</strong> a day together, see conflicts update instantly, then enter scores. Click <strong style="color:var(--white)">Save All Changes</strong> to publish to the public site.</p>
+
+    <!-- LIVE CONFLICT SUMMARY (always visible, updates as leads work) -->
+    <div id="conflict-report" style="margin-bottom:28px;"></div>
 
     <!-- TIME CONFIG -->
     <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:28px;">
@@ -391,6 +392,58 @@
       </div>
     </div>
 
+    <!-- REGISTRATIONS (pulled in, same panel) -->
+    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:28px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:6px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--white);">📥 Registrations</div>
+        <button onclick="loadRegistrations()" style="background:none;border:1px solid var(--border-solid);color:var(--teal);font-size:12px;font-family:'Inter',sans-serif;font-weight:600;padding:6px 14px;border-radius:4px;cursor:pointer;">Refresh from Google Sheet ↻</button>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;" id="reg-sub">Loading registration data from Google Forms…</p>
+
+      <div id="reg-panel">
+        <!-- Summary bar -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:20px;" id="reg-summary"></div>
+
+        <!-- Game filter tabs -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center;">
+          <span style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-right:4px;">Filter:</span>
+          <button class="bracket-tab active" onclick="filterReg('all')" id="regfilter-all">All</button>
+          <button class="bracket-tab" onclick="filterReg('Jenga')" id="regfilter-Jenga">🗼 Jenga</button>
+          <button class="bracket-tab" onclick="filterReg('Chess')" id="regfilter-Chess">♟️ Chess</button>
+          <button class="bracket-tab" onclick="filterReg('Darts')" id="regfilter-Darts">🎯 Darts</button>
+          <button class="bracket-tab" onclick="filterReg('PS5 Tekken')" id="regfilter-PS5 Tekken">🥊 Tekken</button>
+          <button class="bracket-tab" onclick="filterReg('PS5 FIFA')" id="regfilter-PS5 FIFA">⚽ FIFA</button>
+          <button class="bracket-tab" onclick="filterReg('Playing Cards')" id="regfilter-Playing Cards">🃏 Cards</button>
+          <button class="bracket-tab" onclick="filterReg('UNO')" id="regfilter-UNO">🎴 UNO</button>
+          <button class="bracket-tab" onclick="filterReg('Ludo')" id="regfilter-Ludo">🎲 Ludo</button>
+          <button class="bracket-tab" onclick="filterReg('Sequence')" id="regfilter-Sequence">🧩 Sequence</button>
+          <button class="bracket-tab" onclick="filterReg('Table Tennis')" id="regfilter-Table Tennis">🏓 TT</button>
+        </div>
+
+        <!-- Conflict warnings specific to raw registrations (e.g. PS5 both) -->
+        <div id="reg-conflicts" style="margin-bottom:16px;"></div>
+
+        <!-- Player table -->
+        <div style="background:var(--navy2);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+          <table style="width:100%;border-collapse:collapse;" id="reg-table">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border);">
+                <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Name</th>
+                <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Dept</th>
+                <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Game 1</th>
+                <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Game 2</th>
+                <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Game 3</th>
+                <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Duo Partner</th>
+                <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Action</th>
+              </tr>
+            </thead>
+            <tbody id="reg-tbody"></tbody>
+          </table>
+        </div>
+        <p style="margin-top:12px;font-size:12px;color:var(--muted);">Last synced: <span id="reg-sync-time">—</span>. Use <strong style="color:var(--white)">+ Add to game</strong> to place a player into a bracket/league <strong style="color:var(--white)">and</strong> assign their day in one step — conflicts are checked immediately.</p>
+      </div>
+    </div>
+
     <div id="admin-games"></div>
 
     <div style="text-align:center;margin-top:32px;">
@@ -400,76 +453,6 @@
 </section>
 
 <div id="save-toast">✓ Changes saved and published</div>
-
-<!-- REGISTRATIONS TAB -->
-<section class="section" id="tab-registrations">
-  <div class="section-title">Registrations</div>
-  <p class="section-sub" id="reg-sub">Loading registration data from Google Forms…</p>
-
-  <!-- Lock if not admin -->
-  <div id="reg-lock" style="display:none;">
-    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:32px;text-align:center;max-width:400px;margin:0 auto;">
-      <div style="font-size:36px;margin-bottom:16px;">🔒</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:8px;">Leads Only</div>
-      <p style="color:var(--muted);font-size:14px;margin-bottom:20px;">Enter the leads password to view registrations and assign players.</p>
-      <input type="password" id="reg-pw-input" placeholder="Enter password" style="width:100%;padding:12px 16px;background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;margin-bottom:10px;outline:none;" onkeydown="if(event.key==='Enter')checkRegPw()">
-      <div class="err" id="reg-pw-err" style="min-height:18px;font-size:13px;color:#f87171;margin-bottom:10px;"></div>
-      <button class="btn-primary" style="width:100%;" onclick="checkRegPw()">Unlock</button>
-    </div>
-  </div>
-
-  <div id="reg-panel" style="display:none;">
-    <!-- Summary bar -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:32px;" id="reg-summary"></div>
-
-    <!-- Game filter tabs -->
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;align-items:center;">
-      <span style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-right:4px;">Filter:</span>
-      <button class="bracket-tab active" onclick="filterReg('all')" id="regfilter-all">All</button>
-      <button class="bracket-tab" onclick="filterReg('Jenga')" id="regfilter-Jenga">🗼 Jenga</button>
-      <button class="bracket-tab" onclick="filterReg('Chess')" id="regfilter-Chess">♟️ Chess</button>
-      <button class="bracket-tab" onclick="filterReg('Darts')" id="regfilter-Darts">🎯 Darts</button>
-      <button class="bracket-tab" onclick="filterReg('PS5 Tekken')" id="regfilter-PS5 Tekken">🥊 Tekken</button>
-      <button class="bracket-tab" onclick="filterReg('PS5 FIFA')" id="regfilter-PS5 FIFA">⚽ FIFA</button>
-      <button class="bracket-tab" onclick="filterReg('Playing Cards')" id="regfilter-Playing Cards">🃏 Cards</button>
-      <button class="bracket-tab" onclick="filterReg('UNO')" id="regfilter-UNO">🎴 UNO</button>
-      <button class="bracket-tab" onclick="filterReg('Ludo')" id="regfilter-Ludo">🎲 Ludo</button>
-      <button class="bracket-tab" onclick="filterReg('Sequence')" id="regfilter-Sequence">🧩 Sequence</button>
-      <button class="bracket-tab" onclick="filterReg('Table Tennis')" id="regfilter-Table Tennis">🏓 TT</button>
-    </div>
-
-    <!-- Conflict warnings -->
-    <div id="reg-conflicts" style="margin-bottom:20px;"></div>
-
-    <!-- Player table -->
-    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
-      <table style="width:100%;border-collapse:collapse;" id="reg-table">
-        <thead>
-          <tr style="border-bottom:1px solid var(--border);">
-            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Name</th>
-            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Dept</th>
-            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Game 1</th>
-            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Game 2</th>
-            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Game 3</th>
-            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Duo Partner</th>
-            <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Action</th>
-          </tr>
-        </thead>
-        <tbody id="reg-tbody"></tbody>
-      </table>
-    </div>
-    <p style="margin-top:12px;font-size:12px;color:var(--muted);">Last synced: <span id="reg-sync-time">—</span> · <button onclick="loadRegistrations()" style="background:none;border:none;color:var(--teal);font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;">Refresh ↻</button></p>
-  </div>
-</section>
-
-<!-- CONFLICTS TAB (public — no login needed, leads share this view) -->
-<section class="section" id="tab-conflicts">
-  <div class="section-title">⚠ Schedule Conflicts</div>
-  <p class="section-sub">Automatically detected when a player is assigned to two games in the same time slot. Leads resolve by adjusting match timing or swapping players.</p>
-  <div id="conflict-report">
-    <div style="text-align:center;padding:48px 0;color:var(--muted);font-size:14px;">No match data yet — conflicts will appear here once leads enter player assignments.</div>
-  </div>
-</section>
 
 <footer>Indoor Sports Week · Organised by HR · All match disputes escalate to the central coordinator</footer>
 
@@ -522,7 +505,7 @@ function startPolling() {}
 function stopPolling() {}
 
 // ── TAB SWITCHING ────────────────────────────────────────────────────────────
-var TAB_ORDER = ["games","register","schedule","standings","leaderboard","registrations","admin","conflicts"];
+var TAB_ORDER = ["games","register","schedule","standings","leaderboard","admin"];
 async function switchTab(name) {
   document.querySelectorAll(".tab").forEach(function(t,i){ t.classList.toggle("active", TAB_ORDER[i]===name); });
   document.querySelectorAll(".section").forEach(function(s){ s.classList.remove("active"); });
@@ -532,22 +515,23 @@ async function switchTab(name) {
   var s = await loadState();
   if(name==="standings"||name==="leaderboard") renderPublic(s);
   if(name==="schedule") renderSchedule();
-  if(name==="conflicts") runConflictCheck(s);
-  if(name==="registrations") { showRegTab(); }
-  if(name==="standings"||name==="leaderboard"||name==="conflicts") startPolling();
+  if(name==="standings"||name==="leaderboard") startPolling();
   else if(name==="admin") stopPolling();
 }
 
-// ── AUTH ─────────────────────────────────────────────────────────────────────
+// ── AUTH (single gate unlocks registrations + scheduling + conflicts + scores) ─
 var authed = false;
 async function checkPw() {
   var v = document.getElementById("pw-input").value;
   if(v === ADMIN_PASSWORD) {
+    authed = true;
     document.getElementById("pw-err").textContent = "";
     document.getElementById("pw-input").value = "";
     document.getElementById("admin-lock").style.display = "none";
     document.getElementById("admin-panel").style.display = "block";
     await buildAdminPanel();
+    await loadRegistrations();
+    runConflictCheck();
   } else {
     document.getElementById("pw-err").textContent = "Incorrect password.";
   }
@@ -591,6 +575,7 @@ async function buildAdminPanel() {
     div.appendChild(body);
     container.appendChild(div);
   });
+  runConflictCheck();
 }
 
 function toggleGame(id) {
@@ -722,9 +707,6 @@ function buildKnockoutEditor(g, gs) {
           +'</tr>';
       });
     });
-
-    // also show unassigned matches
-    var unassigned = matches.filter(function(m){ return !m.day; });
 
     return '<div class="admin-section-label">'+rn+'</div>'
       +'<table class="edit-table"><thead><tr><th></th><th>Player 1</th><th>Player 2</th><th>Winner</th><th>Day</th><th></th></tr></thead>'
@@ -880,25 +862,25 @@ function runConflictCheck(s) {
     });
   });
 
-  // render conflict report tab
+  // render conflict report — lives at the top of the Leads Panel now
   var el = document.getElementById('conflict-report');
   if(el){
+    var html = '';
     if(conflicts.length===0){
-      el.innerHTML='<div class="conflict-ok">✓ No scheduling conflicts detected. All players are assigned to at most one game per day.</div>';
+      html = '<div class="conflict-ok">✓ No scheduling conflicts detected. All players are assigned to at most one game per day.</div>';
     } else {
-      var html='<div class="conflict-panel"><h3>⚠ '+conflicts.length+' conflict'+(conflicts.length>1?'s':'')+' detected</h3>';
+      html = '<div class="conflict-panel"><h3>⚠ '+conflicts.length+' conflict'+(conflicts.length>1?'s':'')+' detected</h3>';
       conflicts.forEach(function(c){
         html+='<div class="conflict-item"><strong>'+esc(c.player)+'</strong> — '+esc(c.day)+': assigned to <strong>'+c.games.map(esc).join('</strong> AND <strong>')+'</strong></div>';
       });
       html+='</div>';
-      html+='<p style="font-size:13px;color:var(--muted);">Resolve by moving one match to a different day in the Leads Only panel, or swapping in a different player.</p>';
-      el.innerHTML=html;
+      html+='<p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Resolve by moving one match to a different day below, or swapping in a different player.</p>';
     }
+    el.innerHTML = html;
   }
 
   // Check concurrent games per day (max 4 recommended)
   var s2 = _cache || {};
-  var cfg2 = (s2._cfg)||{};
   var concurrentWarnings = [];
   var gamesByDay = {};
   GAMES.forEach(function(g){
@@ -921,21 +903,21 @@ function runConflictCheck(s) {
     }
   });
 
-  if(concurrentWarnings.length > 0) {
+  if(concurrentWarnings.length > 0 && el) {
     var warnHtml = '<div style="background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);border-radius:8px;padding:16px 20px;margin-bottom:20px;">'
       +'<div style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:8px;">⚠ Concurrent Games Warning</div>'
       + concurrentWarnings.map(function(w){ return '<div style="font-size:13px;color:var(--silver);padding:4px 0;">'+esc(w)+'</div>'; }).join('')
       +'<div style="font-size:12px;color:var(--muted);margin-top:8px;">Recommendation: max 4 games running at the same time. Reassign matches to different days to spread the load.</div>'
       +'</div>';
-    if(el) el.innerHTML = (el.innerHTML||'') + warnHtml;
+    el.innerHTML = el.innerHTML + warnHtml;
   }
 
-  // update tab label
+  // update Leads Panel tab label with a live conflict count
   var tabs=document.querySelectorAll('.tab');
-  var tabIdx=TAB_ORDER.indexOf('conflicts');
+  var tabIdx=TAB_ORDER.indexOf('admin');
   if(tabs[tabIdx]){
-    tabs[tabIdx].textContent = conflicts.length>0 ? '⚠ Conflicts ('+conflicts.length+')' : '✓ Conflicts';
-    tabs[tabIdx].style.color = conflicts.length>0 ? '#f87171' : 'var(--teal)';
+    tabs[tabIdx].textContent = conflicts.length>0 ? '⚠ Leads Panel ('+conflicts.length+')' : 'Leads Panel';
+    tabs[tabIdx].style.color = conflicts.length>0 ? '#f87171' : '';
   }
 
   return conflicts;
@@ -1241,7 +1223,7 @@ function renderSchedule() {
   }
 
   if(!start || !end || end <= start) {
-    container.innerHTML = '<div style="text-align:center;padding:48px 0;color:var(--muted);font-size:14px;">⏳ Schedule not yet confirmed — leads will set times in the Leads Only panel.</div>';
+    container.innerHTML = '<div style="text-align:center;padding:48px 0;color:var(--muted);font-size:14px;">⏳ Schedule not yet confirmed — leads will set times in the Leads Panel.</div>';
     return;
   }
 
@@ -1281,33 +1263,9 @@ function renderSchedule() {
   }).join('');
 }
 
-// ── REGISTRATIONS ────────────────────────────────────────────────────────────
+// ── REGISTRATIONS (now part of the single Leads Panel workflow) ─────────────
 var _regData = [];
 var _regFilter = 'all';
-var _regAuthed = false;
-
-function checkRegPw() {
-  var v = document.getElementById('reg-pw-input').value;
-  if(v === ADMIN_PASSWORD) {
-    _regAuthed = true;
-    document.getElementById('reg-lock').style.display = 'none';
-    document.getElementById('reg-panel').style.display = 'block';
-    loadRegistrations();
-  } else {
-    document.getElementById('reg-pw-err').textContent = 'Incorrect password.';
-  }
-}
-
-function showRegTab() {
-  if(_regAuthed) {
-    document.getElementById('reg-lock').style.display = 'none';
-    document.getElementById('reg-panel').style.display = 'block';
-    loadRegistrations();
-  } else {
-    document.getElementById('reg-lock').style.display = 'block';
-    document.getElementById('reg-panel').style.display = 'none';
-  }
-}
 
 async function loadRegistrations() {
   var sub = document.getElementById('reg-sub');
@@ -1391,7 +1349,7 @@ function renderRegistrations() {
 
   var sumEl = document.getElementById('reg-summary');
   if(sumEl) sumEl.innerHTML = GAME_NAMES.map(function(g){
-    return '<div style="background:var(--card-bg);border:1px solid var(--border);border-radius:6px;padding:12px 16px;">'
+    return '<div style="background:var(--navy2);border:1px solid var(--border);border-radius:6px;padding:12px 16px;">'
       +'<div style="font-size:22px;font-weight:700;color:var(--teal);font-family:\'Bebas Neue\',sans-serif;">'+gameCounts[g]+'</div>'
       +'<div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">'+g+'</div></div>';
   }).join('');
@@ -1422,22 +1380,45 @@ function renderRegistrations() {
   }).join('');
 }
 
+// Single-step modal: pick the game AND (for knockout games) the day at the same time.
+// Conflicts are recalculated the instant the player is placed, and shown right there in the modal.
 function addPlayerFromReg(name) {
   var modal = document.createElement('div');
+  modal.id = 'add-player-modal';
   modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:flex;align-items:center;justify-content:center;';
-  modal.innerHTML = '<div style="background:var(--navy2);border:1px solid var(--border);border-radius:8px;padding:28px;max-width:360px;width:90%;max-height:80vh;overflow-y:auto;">'
+  modal.innerHTML = '<div style="background:var(--navy2);border:1px solid var(--border);border-radius:8px;padding:28px;max-width:380px;width:90%;max-height:85vh;overflow-y:auto;">'
     +'<div style="font-family:\'Bebas Neue\',sans-serif;font-size:24px;margin-bottom:4px;">Add '+esc(name)+'</div>'
-    +'<p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Select which game to add this player to:</p>'
-    +'<div style="display:flex;flex-direction:column;gap:8px;">'
-    +GAMES.map(function(g){ return '<button onclick="confirmAddPlayer(\''+g.id+'\',\''+name.replace(/'/g,"\\'")+'\')" style="padding:10px 14px;background:var(--card-bg);border:1px solid var(--border);border-radius:4px;color:var(--white);font-size:13px;font-family:\'Inter\',sans-serif;cursor:pointer;text-align:left;" onmouseover="this.style.borderColor=\'var(--teal)\'" onmouseout="this.style.borderColor=\'var(--border)\'">'+g.emoji+' '+g.name+'</button>'; }).join('')
-    +'</div><button onclick="document.querySelectorAll(\'div[style*=\\\"position:fixed\\\"]\').forEach(function(m){m.remove()})" style="margin-top:14px;width:100%;padding:8px;background:none;border:1px solid var(--border-solid);border-radius:4px;color:var(--muted);font-size:13px;cursor:pointer;font-family:\'Inter\',sans-serif;">Cancel</button>'
+    +'<p style="font-size:13px;color:var(--muted);margin-bottom:16px;">1. Pick the game. 2. For knockout games, pick the day. We place the player and check conflicts immediately.</p>'
+    +'<div id="modal-game-list" style="display:flex;flex-direction:column;gap:8px;">'
+    +GAMES.map(function(g){ return '<button onclick="selectGameForPlayer(\''+g.id+'\',\''+name.replace(/'/g,"\\'")+'\')" style="padding:10px 14px;background:var(--card-bg);border:1px solid var(--border);border-radius:4px;color:var(--white);font-size:13px;font-family:\'Inter\',sans-serif;cursor:pointer;text-align:left;" onmouseover="this.style.borderColor=\'var(--teal)\'" onmouseout="this.style.borderColor=\'var(--border)\'">'+g.emoji+' '+g.name+'</button>'; }).join('')
+    +'</div>'
+    +'<div id="modal-day-picker" style="display:none;margin-top:14px;"></div>'
+    +'<div id="modal-conflict-note" style="margin-top:12px;"></div>'
+    +'<button onclick="document.getElementById(\'add-player-modal\').remove()" style="margin-top:14px;width:100%;padding:8px;background:none;border:1px solid var(--border-solid);border-radius:4px;color:var(--muted);font-size:13px;cursor:pointer;font-family:\'Inter\',sans-serif;">Cancel</button>'
     +'</div>';
   document.body.appendChild(modal);
   modal.addEventListener('click', function(e){ if(e.target===modal) modal.remove(); });
 }
 
-async function confirmAddPlayer(gid, name) {
-  document.querySelectorAll('div[style*="position:fixed"]').forEach(function(m){ m.remove(); });
+function selectGameForPlayer(gid, name) {
+  var g = GAMES.find(function(x){ return x.id===gid; });
+  if(!g) return;
+  if(g.format === 'league') {
+    // no per-match day for league — just place them
+    confirmAddPlayer(gid, name, null);
+    return;
+  }
+  // knockout — ask which day this player's first match should fall on
+  var picker = document.getElementById('modal-day-picker');
+  document.getElementById('modal-game-list').style.display = 'none';
+  picker.style.display = 'block';
+  picker.innerHTML = '<div style="font-size:12px;color:var(--muted);margin-bottom:8px;">'+g.emoji+' '+g.name+' — assign day:</div>'
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap;">'
+    +DAY_LABELS.map(function(d){ return '<button onclick="confirmAddPlayer(\''+gid+'\',\''+name.replace(/'/g,"\\'")+'\',\''+d+'\')" style="padding:8px 14px;background:var(--card-bg);border:1px solid var(--border);border-radius:4px;color:var(--white);font-size:13px;font-family:\'Inter\',sans-serif;cursor:pointer;">'+d+'</button>'; }).join('')
+    +'</div>';
+}
+
+async function confirmAddPlayer(gid, name, day) {
   var s = _cache || {};
   var g = GAMES.find(function(x){ return x.id===gid; });
   if(!g) return;
@@ -1454,14 +1435,34 @@ async function confirmAddPlayer(gid, name) {
     var placed=false;
     for(var mi=0;mi<br.rounds[0].length;mi++){
       var m=br.rounds[0][mi];
-      if(!m.p1){m.p1=name;placed=true;break;}
-      if(!m.p2){m.p2=name;placed=true;break;}
+      if(!m.p1){m.p1=name;m.day=day||m.day||'Day 1';placed=true;break;}
+      if(!m.p2){m.p2=name;m.day=day||m.day||'Day 1';placed=true;break;}
     }
-    if(!placed) br.rounds[0].push({p1:name,p2:'',winner:'',day:'Day 1'});
+    if(!placed) br.rounds[0].push({p1:name,p2:'',winner:'',day:day||'Day 1'});
   }
   saveState(s);
+
+  // Recalculate conflicts immediately — same workflow, no tab switch needed
+  var conflicts = runConflictCheck(s);
+  var playerConflict = conflicts.find(function(c){ return c.player.toLowerCase()===name.toLowerCase(); });
+  var note = document.getElementById('modal-conflict-note');
+  if(note) {
+    note.innerHTML = playerConflict
+      ? '<div style="font-size:12px;color:#fca5a5;background:rgba(127,29,29,.25);border:1px solid rgba(248,113,113,.3);border-radius:4px;padding:8px 12px;">⚠ '+esc(name)+' now has a conflict on '+esc(playerConflict.day)+': '+playerConflict.games.map(esc).join(' AND ')+'</div>'
+      : '<div style="font-size:12px;color:var(--teal);background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.2);border-radius:4px;padding:8px 12px;">✓ '+esc(name)+' added to '+g.name+' — no conflicts.</div>';
+  }
+
+  // refresh the game editor + registrations table underneath so it all reflects instantly
+  await buildAdminPanel();
+  document.getElementById("body-"+gid).classList.add("open");
+  document.getElementById("arrow-"+gid).textContent="⌄";
+  renderRegistrations();
+
   var toast=document.getElementById('save-toast');
-  if(toast){toast.textContent='✓ '+name+' added to '+g.name;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');toast.textContent='✓ Synced to all devices';},2500);}
+  if(toast){toast.textContent='✓ '+name+' added to '+g.name;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');toast.textContent='✓ Changes saved and published';},2500);}
+
+  // Auto-close the modal shortly after showing the conflict result, so leads can keep moving
+  setTimeout(function(){ var m=document.getElementById('add-player-modal'); if(m) m.remove(); }, playerConflict ? 2600 : 1200);
 }
 
 // ── Init
