@@ -7,17 +7,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0D1B2A;
-    --navy2: #162333;
-    --teal: #00D4AA;
-    --teal-dim: #00a888;
-    --amber: #F5A623;
-    --silver: #C8D6E5;
-    --white: #F0F4F8;
-    --muted: #8A9BB0;
-    --card-bg: #162333;
-    --border: rgba(0,212,170,0.15);
-    --border-solid: #1e3048;
+    --navy: #0B0B10;
+    --navy2: #16151D;
+    --teal: #E3B23C;
+    --teal-dim: #c99a2c;
+    --amber: #D93B4A;
+    --silver: #CFC8D6;
+    --white: #F5F1EA;
+    --muted: #948C9C;
+    --card-bg: #16151D;
+    --border: rgba(227,178,60,0.15);
+    --border-solid: #2A2733;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--white); font-family:'Inter',sans-serif; font-size:15px; line-height:1.6; min-height:100vh; }
@@ -67,14 +67,14 @@
   /* GAMES GRID */
   .games-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; margin-bottom:48px; }
   .game-card { background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:20px; position:relative; overflow:hidden; transition:border-color .2s,transform .15s; }
-  .game-card:hover { border-color:rgba(0,212,170,.4); transform:translateY(-2px); }
+  .game-card:hover { border-color:rgba(227,178,60,.4); transform:translateY(-2px); }
   .game-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--teal); }
   .game-card.duo::before { background:var(--amber); }
   .game-emoji { font-size:28px; margin-bottom:12px; }
   .game-name { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--white); margin-bottom:4px; }
   .game-badge { display:inline-block; font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 8px; border-radius:3px; margin-bottom:12px; }
-  .badge-individual { background:rgba(0,212,170,.15); color:var(--teal); }
-  .badge-duo { background:rgba(245,166,35,.15); color:var(--amber); }
+  .badge-individual { background:rgba(227,178,60,.15); color:var(--teal); }
+  .badge-duo { background:rgba(217,59,74,.15); color:var(--amber); }
   .game-meta { font-size:12px; color:var(--muted); }
   .game-meta span { display:block; margin-top:4px; }
 
@@ -83,7 +83,7 @@
   .reg-step { background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:20px; text-align:center; }
   .step-num { font-family:'Bebas Neue',sans-serif; font-size:40px; color:var(--teal); line-height:1; margin-bottom:8px; }
   .step-text { font-size:13px; color:var(--silver); }
-  .reg-cta { background:var(--card-bg); border:1px solid rgba(0,212,170,.4); border-radius:8px; padding:36px; text-align:center; }
+  .reg-cta { background:var(--card-bg); border:1px solid rgba(227,178,60,.4); border-radius:8px; padding:36px; text-align:center; }
   .reg-cta h3 { font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--white); margin-bottom:8px; }
   .reg-cta p { color:var(--muted); font-size:14px; margin-bottom:24px; }
   .rules-list { list-style:none; display:inline-block; text-align:left; margin-bottom:28px; }
@@ -98,13 +98,13 @@
   .schedule-table th { font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); padding:8px 16px; text-align:left; border-bottom:1px solid var(--border); }
   .schedule-table td { padding:12px 16px; font-size:14px; border-bottom:1px solid rgba(255,255,255,.04); vertical-align:middle; }
   .schedule-table tr:last-child td { border-bottom:none; }
-  .schedule-table tr.wrap-row td { background:rgba(0,212,170,.05); }
-  .schedule-table tr.final-row td { background:rgba(245,166,35,.08); }
+  .schedule-table tr.wrap-row td { background:rgba(227,178,60,.05); }
+  .schedule-table tr.final-row td { background:rgba(217,59,74,.08); }
   .time-cell { color:var(--teal); font-weight:600; font-size:13px; white-space:nowrap; }
   .game-cell { font-weight:600; color:var(--white); }
   .stage-cell { color:var(--silver); }
   .notes-cell { color:var(--muted); font-size:13px; }
-  .final-badge { display:inline-block; font-size:11px; font-weight:700; background:rgba(245,166,35,.2); color:var(--amber); padding:2px 8px; border-radius:3px; margin-left:8px; }
+  .final-badge { display:inline-block; font-size:11px; font-weight:700; background:rgba(217,59,74,.2); color:var(--amber); padding:2px 8px; border-radius:3px; margin-left:8px; }
 
   /* STANDINGS */
   .standings-info { background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:24px; margin-bottom:32px; display:flex; align-items:flex-start; gap:16px; }
@@ -117,8 +117,8 @@
   .tracker-header { padding:14px 18px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
   .tracker-title { font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--white); }
   .tracker-format { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; padding:3px 8px; border-radius:3px; }
-  .fmt-league { background:rgba(0,212,170,.15); color:var(--teal); }
-  .fmt-knockout { background:rgba(245,166,35,.15); color:var(--amber); }
+  .fmt-league { background:rgba(227,178,60,.15); color:var(--teal); }
+  .fmt-knockout { background:rgba(217,59,74,.15); color:var(--amber); }
   .tracker-body { padding:16px 18px; }
   .tracker-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.04); font-size:13px; }
   .tracker-row:last-child { border-bottom:none; }
@@ -151,7 +151,7 @@
   .admin-bar { display:flex; justify-content:space-between; align-items:center; margin-bottom:36px; flex-wrap:wrap; gap:12px; }
   .admin-bar h2 { font-family:'Bebas Neue',sans-serif; font-size:36px; color:var(--white); }
   .admin-bar-right { display:flex; gap:12px; align-items:center; }
-  .admin-tag { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; background:rgba(0,212,170,.15); color:var(--teal); padding:5px 12px; border-radius:3px; }
+  .admin-tag { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; background:rgba(227,178,60,.15); color:var(--teal); padding:5px 12px; border-radius:3px; }
 
   /* Game admin blocks */
   .admin-game { background:var(--card-bg); border:1px solid var(--border); border-radius:8px; margin-bottom:20px; overflow:hidden; }
@@ -172,9 +172,9 @@
   .edit-table input:focus { border-color:var(--teal); }
   .edit-table select { background:var(--navy2); border:1px solid var(--border-solid); border-radius:4px; color:var(--white); font-size:13px; font-family:'Inter',sans-serif; padding:7px 10px; width:100%; outline:none; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9BB0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 10px center; padding-right:28px; cursor:pointer; transition:border-color .15s; }
   .edit-table select:focus { border-color:var(--teal); }
-  .edit-table select:hover { border-color:rgba(0,212,170,.4); }
-  .edit-table input:hover { border-color:rgba(0,212,170,.4); }
-  .add-row-btn { font-size:12px; color:var(--teal); background:none; border:1px dashed rgba(0,212,170,.3); border-radius:3px; padding:6px 14px; cursor:pointer; transition:border-color .15s; }
+  .edit-table select:hover { border-color:rgba(227,178,60,.4); }
+  .edit-table input:hover { border-color:rgba(227,178,60,.4); }
+  .add-row-btn { font-size:12px; color:var(--teal); background:none; border:1px dashed rgba(227,178,60,.3); border-radius:3px; padding:6px 14px; cursor:pointer; transition:border-color .15s; }
   .add-row-btn:hover { border-color:var(--teal); }
   .del-row-btn { background:none; border:none; color:#f87171; font-size:16px; cursor:pointer; padding:0 4px; line-height:1; }
   .del-row-btn:hover { color:#ef4444; }
@@ -184,7 +184,7 @@
   .final-inputs label { font-size:12px; color:var(--muted); margin-bottom:4px; display:block; }
   .final-inputs input { background:rgba(255,255,255,.05); border:1px solid var(--border-solid); border-radius:3px; color:var(--white); font-size:14px; font-family:'Inter',sans-serif; padding:8px 12px; width:100%; outline:none; }
   .final-inputs input:focus { border-color:var(--amber); }
-  .winner-input { border-color:rgba(245,166,35,.4) !important; }
+  .winner-input { border-color:rgba(217,59,74,.4) !important; }
   .runner-input { border-color:rgba(200,214,229,.3) !important; }
 
   /* Save notification */
@@ -195,16 +195,16 @@
   .conflict-panel h3 { font-size:14px; font-weight:700; color:#fca5a5; margin-bottom:12px; }
   .conflict-item { font-size:13px; color:#fca5a5; padding:6px 0; border-bottom:1px solid rgba(248,113,113,.15); }
   .conflict-item:last-child { border-bottom:none; }
-  .conflict-ok { background:rgba(0,212,170,.08); border:1px solid rgba(0,212,170,.2); border-radius:8px; padding:14px 20px; margin-bottom:28px; font-size:13px; color:var(--teal); }
+  .conflict-ok { background:rgba(227,178,60,.08); border:1px solid rgba(227,178,60,.2); border-radius:8px; padding:14px 20px; margin-bottom:28px; font-size:13px; color:var(--teal); }
   /* MULTI-BRACKET */
   .bracket-tabs { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }
   .bracket-tab { font-size:12px; font-weight:600; padding:5px 14px; border-radius:3px; border:1px solid var(--border-solid); background:transparent; color:var(--muted); cursor:pointer; transition:all .15s; }
   .bracket-tab.active { background:var(--teal); color:var(--navy); border-color:var(--teal); }
   .bracket-tab:hover:not(.active) { border-color:var(--teal); color:var(--teal); }
-  .add-bracket-btn { font-size:12px; color:var(--amber); background:none; border:1px dashed rgba(245,166,35,.3); border-radius:3px; padding:5px 14px; cursor:pointer; }
+  .add-bracket-btn { font-size:12px; color:var(--amber); background:none; border:1px dashed rgba(217,59,74,.3); border-radius:3px; padding:5px 14px; cursor:pointer; }
   .add-bracket-btn:hover { border-color:var(--amber); }
   .del-bracket-btn { font-size:11px; color:#f87171; background:none; border:1px solid rgba(248,113,113,.2); border-radius:3px; padding:4px 8px; cursor:pointer; }
-  .match-day-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--amber); margin:16px 0 8px; padding:4px 10px; background:rgba(245,166,35,.08); border-radius:3px; display:inline-block; }
+  .match-day-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--amber); margin:16px 0 8px; padding:4px 10px; background:rgba(217,59,74,.08); border-radius:3px; display:inline-block; }
   .conflict-flag { font-size:11px; color:#f87171; font-weight:600; margin-left:6px; }
 
   footer { border-top:1px solid var(--border); padding:24px; text-align:center; color:var(--muted); font-size:13px; }
@@ -346,10 +346,11 @@
       <h2>Leads Panel</h2>
       <div class="admin-bar-right">
         <span class="admin-tag">✓ Authenticated</span>
+        <button class="btn-secondary btn-sm" onclick="syncNowAdmin()">🔄 Sync Now</button>
         <button class="btn-danger btn-sm" onclick="lockAdmin()">Lock</button>
       </div>
     </div>
-    <p style="color:var(--muted);font-size:14px;margin-bottom:28px;">One workflow: pull registrations, assign players to a game <strong style="color:var(--white)">and</strong> a day together, see conflicts update instantly, then enter scores. Click <strong style="color:var(--white)">Save All Changes</strong> to publish to the public site.</p>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:28px;">One workflow: registrations sync from the live Google Sheet and are <strong style="color:var(--white)">auto-placed</strong> into each game's bracket/league below — no manual step in between. Set match days, watch conflicts update instantly, then enter scores. Click <strong style="color:var(--white)">Save All Changes</strong> to publish to the public site.</p>
 
     <!-- LIVE CONFLICT SUMMARY (always visible, updates as leads work) -->
     <div id="conflict-report" style="margin-bottom:28px;"></div>
@@ -376,7 +377,7 @@
           </select>
         </div>
       </div>
-      <div style="margin-top:16px;padding:12px 16px;background:rgba(0,212,170,.07);border-radius:4px;font-size:13px;color:var(--teal);" id="cfg-preview">Configure times above to preview the session window.</div>
+      <div style="margin-top:16px;padding:12px 16px;background:rgba(227,178,60,.07);border-radius:4px;font-size:13px;color:var(--teal);" id="cfg-preview">Configure times above to preview the session window.</div>
     </div>
 
     <!-- DAY DATES -->
@@ -440,7 +441,7 @@
             <tbody id="reg-tbody"></tbody>
           </table>
         </div>
-        <p style="margin-top:12px;font-size:12px;color:var(--muted);">Last synced: <span id="reg-sync-time">—</span>. Use <strong style="color:var(--white)">+ Add to game</strong> to place a player into a bracket/league <strong style="color:var(--white)">and</strong> assign their day in one step — conflicts are checked immediately.</p>
+        <p style="margin-top:12px;font-size:12px;color:var(--muted);">Last synced: <span id="reg-sync-time">—</span>. Registrants are auto-placed into their game's bracket/league on every sync — scroll down to the game editors below to set match days and pairings. Use <strong style="color:var(--white)">+ Add to game</strong> only for walk-ins or manual overrides.</p>
       </div>
     </div>
 
@@ -453,6 +454,7 @@
 </section>
 
 <div id="save-toast">✓ Changes saved and published</div>
+<div id="live-badge" style="position:fixed;bottom:24px;left:24px;font-size:11px;font-weight:600;padding:7px 14px;border-radius:4px;background:var(--card-bg);border:1px solid var(--border-solid);color:var(--muted);z-index:998;display:flex;align-items:center;gap:6px;">● connecting…</div>
 
 <footer>Indoor Sports Week · Organised by HR · All match disputes escalate to the central coordinator</footer>
 
@@ -461,7 +463,17 @@
 var ADMIN_PASSWORD = "SportsFest2025"; // ← change this before deploying
 
 var SHEET_ID = "1T_AyA18wE-BOABU4_kC-jdRPg8KyJZ4oOIKR-kOQztA";
-// localStorage only — no backend needed
+
+// MULTI-DEVICE LIVE SYNC — powered by npoint.io (free, no signup needed).
+// Setup (2 minutes, do this before tomorrow):
+//   1. Go to https://www.npoint.io
+//   2. Click "Create New Bin" and paste this exact JSON as the content:  {}
+//   3. Click Save. Copy the URL it gives you, e.g. https://api.npoint.io/abcd1234ef567890
+//   4. Paste that full URL below, replacing the placeholder.
+// Every lead's browser (and every viewer's browser) then reads/writes the SAME
+// document, so scores/days entered on one laptop show up on everyone else's
+// within a few seconds — no separate backend or hosting needed.
+var NPOINT_URL = "https://api.npoint.io/REPLACE_WITH_YOUR_BIN_ID";
 
 var GAMES = [
   { id:"uno",       name:"UNO",           emoji:"🎴", format:"league",   type:"Individual" },
@@ -476,33 +488,88 @@ var GAMES = [
   { id:"tt",        name:"Table Tennis",  emoji:"🏓", format:"knockout", type:"Duo 2v2"    },
 ];
 
-// ── STATE — localStorage ─────────────────────────────────────────────────────
+// ── STATE — synced via npoint.io, localStorage is only the offline fallback ─
 var _cache = null;
 var _syncTimer = null;
+var _npointReady = NPOINT_URL.indexOf('REPLACE_WITH_YOUR_BIN_ID') === -1;
 
 function showSyncStatus(msg, color) {
-  var el = document.getElementById('sync-status');
-  if(el) { el.textContent = msg; el.style.color = color || 'var(--muted)'; }
+  var el = document.getElementById('live-badge');
+  if(!el) return;
+  if(!msg) { return; } // keep last status showing — this badge is persistent, unlike the toast
+  el.innerHTML = '● ' + msg;
+  el.style.color = color || 'var(--muted)';
+  el.style.borderColor = color || 'var(--border-solid)';
+}
+
+// Always hits the network when a fresh read is needed; falls back to
+// localStorage (device-only) if npoint isn't configured yet or is unreachable.
+async function fetchRemoteState() {
+  if(!_npointReady) { showSyncStatus('Offline mode — set NPOINT_URL to enable live sync', 'var(--amber)'); return null; }
+  try {
+    var res = await fetch(NPOINT_URL, { cache:'no-store' });
+    if(res.ok) {
+      var data = await res.json();
+      showSyncStatus('Live — synced across devices', 'var(--teal)');
+      return data && typeof data==='object' ? data : {};
+    }
+  } catch(e) {}
+  showSyncStatus('Offline — showing last saved copy on this device', 'var(--amber)');
+  return null;
 }
 
 async function loadState() {
+  var remote = await fetchRemoteState();
+  if(remote) {
+    _cache = remote;
+    try { localStorage.setItem('ninjagames_v9', JSON.stringify(_cache)); } catch(e){}
+    return _cache;
+  }
   if(_cache) return _cache;
   try { _cache = JSON.parse(localStorage.getItem('ninjagames_v9') || '{}'); }
   catch(e) { _cache = {}; }
   return _cache;
 }
 
+// Fire-and-forget: saves locally instantly (so the UI never blocks), then
+// pushes to npoint in the background so other devices pick it up on their
+// next poll/tab-switch. Existing calls elsewhere in this file don't need to
+// change — they just call saveState(s) as before.
 function saveState(s) {
   _cache = s;
   try { localStorage.setItem('ninjagames_v9', JSON.stringify(s)); } catch(e){}
-  showSyncStatus('✓ Saved', 'var(--teal)');
-  setTimeout(function(){ showSyncStatus('',''); }, 2000);
+  if(!_npointReady) { showSyncStatus('Offline mode — set NPOINT_URL to enable live sync', 'var(--amber)'); return; }
+  showSyncStatus('Saving…', 'var(--muted)');
+  fetch(NPOINT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(s)
+  }).then(function(res){
+    showSyncStatus(res.ok ? 'Live — synced across devices' : 'Sync failed — saved on this device only', res.ok ? 'var(--teal)' : 'var(--amber)');
+  }).catch(function(){
+    showSyncStatus('Offline — saved on this device only', 'var(--amber)');
+  });
 }
 
 async function pushState(s) { saveState(s); }
 
-function startPolling() {}
-function stopPolling() {}
+// Polls every 6s so other devices' changes show up here without a manual refresh.
+function startPolling() {
+  stopPolling();
+  _syncTimer = setInterval(async function(){
+    var remote = await fetchRemoteState();
+    if(!remote) return;
+    _cache = remote;
+    try { localStorage.setItem('ninjagames_v9', JSON.stringify(_cache)); } catch(e){}
+    renderRegisteredCount(_cache);
+    var activeTab = document.querySelector('.section.active');
+    var id = activeTab ? activeTab.id : '';
+    if(id==='tab-standings' || id==='tab-leaderboard') renderPublic(_cache);
+    if(id==='tab-schedule') renderSchedule();
+    if(id==='tab-admin' && authed) runConflictCheck(_cache);
+  }, 6000);
+}
+function stopPolling() { if(_syncTimer) clearInterval(_syncTimer); _syncTimer = null; }
 
 // ── TAB SWITCHING ────────────────────────────────────────────────────────────
 var TAB_ORDER = ["games","register","schedule","standings","leaderboard","admin"];
@@ -515,7 +582,7 @@ async function switchTab(name) {
   var s = await loadState();
   if(name==="standings"||name==="leaderboard") renderPublic(s);
   if(name==="schedule") renderSchedule();
-  if(name==="standings"||name==="leaderboard") startPolling();
+  if(name==="standings"||name==="leaderboard"||name==="schedule"||name==="games") startPolling();
   else if(name==="admin") stopPolling();
 }
 
@@ -541,6 +608,16 @@ function lockAdmin() {
   document.getElementById("admin-lock").style.display = "block";
   document.getElementById("admin-panel").style.display = "none";
   document.getElementById("admin-games").innerHTML = "";
+}
+
+async function syncNowAdmin() {
+  _cache = null;
+  await loadState();
+  await buildAdminPanel();
+  await loadRegistrations();
+  runConflictCheck();
+  var toast = document.getElementById('save-toast');
+  if(toast){ toast.textContent='✓ Pulled latest from all devices'; toast.classList.add('show'); setTimeout(function(){ toast.classList.remove('show'); toast.textContent='✓ Changes saved and published'; }, 2000); }
 }
 
 // ── ADMIN PANEL BUILD ────────────────────────────────────────────────────────
@@ -699,7 +776,7 @@ function buildKnockoutEditor(g, gs) {
           +'<td style="color:var(--muted);font-size:12px;">Match '+(mi+1)+(cf?'<span class="conflict-flag">⚠ Conflict</span>':'')+'</td>'
           +'<td><input value="'+esc(m.p1||'')+'" placeholder="Player 1" oninput="updateMatchB(\''+g.id+'\','+bi+','+ri+','+mi+',\'p1\',this.value)"></td>'
           +'<td><input value="'+esc(m.p2||'')+'" placeholder="Player 2" oninput="updateMatchB(\''+g.id+'\','+bi+','+ri+','+mi+',\'p2\',this.value)"></td>'
-          +'<td><input value="'+esc(m.winner||'')+'" placeholder="Winner" style="border-color:rgba(0,212,170,.3);" oninput="updateMatchB(\''+g.id+'\','+bi+','+ri+','+mi+',\'winner\',this.value)"></td>'
+          +'<td><input value="'+esc(m.winner||'')+'" placeholder="Winner" style="border-color:rgba(227,178,60,.3);" oninput="updateMatchB(\''+g.id+'\','+bi+','+ri+','+mi+',\'winner\',this.value)"></td>'
           +'<td><select onchange="updateMatchB(\''+g.id+'\','+bi+','+ri+','+mi+',\'day\',this.value)" style="background:var(--navy2);border:1px solid var(--border-solid);border-radius:3px;color:var(--white);font-size:12px;padding:5px 8px;outline:none;">'
           +DAY_LABELS.map(function(dl){ return '<option'+(dl===(m.day||'Day 1')?' selected':'')+'>'+dl+'</option>'; }).join('')
           +'</select></td>'
@@ -904,7 +981,7 @@ function runConflictCheck(s) {
   });
 
   if(concurrentWarnings.length > 0 && el) {
-    var warnHtml = '<div style="background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);border-radius:8px;padding:16px 20px;margin-bottom:20px;">'
+    var warnHtml = '<div style="background:rgba(217,59,74,.1);border:1px solid rgba(217,59,74,.3);border-radius:8px;padding:16px 20px;margin-bottom:20px;">'
       +'<div style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:8px;">⚠ Concurrent Games Warning</div>'
       + concurrentWarnings.map(function(w){ return '<div style="font-size:13px;color:var(--silver);padding:4px 0;">'+esc(w)+'</div>'; }).join('')
       +'<div style="font-size:12px;color:var(--muted);margin-top:8px;">Recommendation: max 4 games running at the same time. Reassign matches to different days to spread the load.</div>'
@@ -1202,6 +1279,53 @@ var SCHEDULE_DAYS = [
   }
 ];
 
+// League matchday → calendar day mapping (per the event's default run of play)
+var LEAGUE_MD_DAY = {
+  uno:      {md1:'Day 1', md2:'Day 2', md3:'Day 3'},
+  ludo:     {md1:'Day 1', md2:'Day 2', md3:'Day 3'},
+  sequence: {md1:'Day 2', md2:'Day 3'}
+};
+
+function buildRealMatchesForDay(dayLabel) {
+  var s = _cache || {};
+  var rowsHtml = '';
+
+  GAMES.forEach(function(g){
+    var gs = s[g.id]||{};
+    if(g.format==='knockout') {
+      var brackets = gs.brackets || [];
+      brackets.forEach(function(br){
+        (br.rounds||[]).forEach(function(round, ri){
+          (round||[]).forEach(function(m){
+            if((m.day||'Day 1')===dayLabel && (m.p1 || m.p2)) {
+              rowsHtml += '<div style="display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px;">'
+                +'<span style="color:var(--white);font-weight:600;">'+g.emoji+' '+g.name+(br.name&&br.name!=='Bracket A'?' — '+esc(br.name):'')+'</span>'
+                +'<span style="color:var(--silver);">'+esc(m.p1||'TBD')+' vs '+esc(m.p2||'TBD')+'</span>'
+                +'<span style="color:var(--muted);font-size:12px;">'+(ROUND_NAMES[ri]||'Round '+(ri+1))+'</span>'
+                +'</div>';
+            }
+          });
+        });
+      });
+    } else {
+      var mdMap = LEAGUE_MD_DAY[g.id];
+      if(!mdMap) return;
+      var mdKey = Object.keys(mdMap).find(function(k){ return mdMap[k]===dayLabel; });
+      if(!mdKey) return;
+      var players = (gs.players||[]).filter(function(p){ return p.name; });
+      if(players.length) {
+        rowsHtml += '<div style="display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px;">'
+          +'<span style="color:var(--white);font-weight:600;">'+g.emoji+' '+g.name+'</span>'
+          +'<span style="color:var(--silver);">'+players.map(function(p){ return esc(p.name); }).join(', ')+'</span>'
+          +'<span style="color:var(--muted);font-size:12px;">League '+mdKey.toUpperCase()+'</span>'
+          +'</div>';
+      }
+    }
+  });
+
+  return rowsHtml || null;
+}
+
 function renderSchedule() {
   var s = _cache || {};
   var cfg = s._cfg || {};
@@ -1255,8 +1379,14 @@ function renderSchedule() {
         +'<td class="notes-cell">'+r.notes+'</td>'
         +'</tr>';
     }).join('');
+    var realMatches = buildRealMatchesForDay(day.label);
+    var realHtml = realMatches ? '<div style="margin-top:14px;background:rgba(227,178,60,.06);border:1px solid var(--border);border-radius:8px;padding:16px 20px;">'
+      +'<div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin-bottom:10px;">📌 Confirmed matchups for this day</div>'
+      + realMatches
+      +'</div>' : '';
     return '<div class="day-block">'
       +'<div class="day-label">'+day.label+(day.optional?'<span style="font-size:13px;color:var(--amber);font-family:Inter;font-weight:500;margin-left:12px;">Optional</span>':'')+' <span class="day-date">'+esc(dateStr)+'</span></div>'
+      +realHtml
       +'<table class="schedule-table"><thead><tr><th>Time</th><th>Game</th><th>Stage</th><th>Notes</th></tr></thead>'
       +'<tbody>'+rows+'</tbody></table>'
       +'</div>';
@@ -1266,6 +1396,59 @@ function renderSchedule() {
 // ── REGISTRATIONS (now part of the single Leads Panel workflow) ─────────────
 var _regData = [];
 var _regFilter = 'all';
+var GAME_NAME_TO_ID = {
+  'Jenga':'jenga', 'Chess':'chess', 'Darts':'darts',
+  'PS5 Tekken':'ps5tekken', 'PS5 FIFA':'ps5fifa', 'Playing Cards':'cards',
+  'UNO':'uno', 'Ludo':'ludo', 'Sequence':'sequence', 'Table Tennis':'tt'
+};
+var DUO_GAME_IDS = ['ludo','sequence','tt'];
+
+// Pulls straight from the live sheet AND drops every registrant into their
+// game's bracket/league automatically — this is the step that used to be a
+// separate manual click. Registration + scheduling now happen as one sync.
+function autoSyncRegistrations() {
+  var s = _cache || {};
+  var addedCount = 0;
+  _regData.forEach(function(r){
+    [r.game1, r.game2, r.game3].forEach(function(gameName){
+      if(!gameName || gameName==='None') return;
+      var gid = GAME_NAME_TO_ID[gameName];
+      if(!gid) return;
+      var g = GAMES.find(function(x){ return x.id===gid; });
+      if(!g) return;
+      var entryName = (DUO_GAME_IDS.indexOf(gid)!==-1 && r.partner) ? (r.name+' & '+r.partner) : r.name;
+      if(!s[gid]) s[gid]={};
+
+      if(g.format==='league') {
+        if(!s[gid].players) s[gid].players=[];
+        var existsL = s[gid].players.some(function(p){ return p.name && p.name.toLowerCase()===entryName.toLowerCase(); });
+        if(!existsL) { s[gid].players.push({name:entryName, md1:'—', md2:'—', md3:'—'}); addedCount++; }
+      } else {
+        if(!s[gid].brackets) s[gid].brackets=[{name:'Bracket A', rounds:[]}];
+        var br = s[gid].brackets[0];
+        if(!br.rounds) br.rounds=[];
+        if(!br.rounds[0]) br.rounds[0]=[];
+        var alreadyIn = br.rounds.some(function(round){
+          return (round||[]).some(function(m){
+            return (m.p1 && m.p1.toLowerCase()===entryName.toLowerCase()) || (m.p2 && m.p2.toLowerCase()===entryName.toLowerCase());
+          });
+        });
+        if(!alreadyIn) {
+          var placed = false;
+          for(var mi=0; mi<br.rounds[0].length; mi++){
+            var m = br.rounds[0][mi];
+            if(!m.p1){ m.p1=entryName; placed=true; break; }
+            if(!m.p2){ m.p2=entryName; placed=true; break; }
+          }
+          if(!placed) br.rounds[0].push({p1:entryName, p2:'', winner:'', day:'Day 1'});
+          addedCount++;
+        }
+      }
+    });
+  });
+  if(addedCount>0) saveState(s);
+  return addedCount;
+}
 
 async function loadRegistrations() {
   var sub = document.getElementById('reg-sub');
@@ -1298,12 +1481,23 @@ async function loadRegistrations() {
   var s = _cache || {};
   s._regCount = _regData.length;
   saveState(s);
+
+  // One task: as soon as the sheet syncs, every registrant is placed into
+  // their game's bracket/league automatically. Leads just fine-tune days/pairings below.
+  var added = autoSyncRegistrations();
+
   var countEl = document.getElementById('stat-players');
   if(countEl) countEl.textContent = _regData.length || '—';
-  if(sub) sub.textContent = _regData.length + ' registration' + (_regData.length !== 1 ? 's' : '') + ' loaded · Last synced: ' + new Date().toLocaleTimeString();
+  if(sub) sub.textContent = _regData.length + ' registration' + (_regData.length !== 1 ? 's' : '') + ' loaded · Last synced: ' + new Date().toLocaleTimeString() + (added>0 ? ' · ' + added + ' new slot' + (added!==1?'s':'') + ' auto-scheduled below ↓' : '');
   var syncEl = document.getElementById('reg-sync-time');
   if(syncEl) syncEl.textContent = new Date().toLocaleTimeString();
   renderRegistrations();
+
+  // If the admin panel is already built, refresh it in place so the newly
+  // synced players show up in the schedule editors right away — no separate step.
+  if(authed && document.getElementById('admin-games') && document.getElementById('admin-games').children.length){
+    await buildAdminPanel();
+  }
 }
 
 function parseCSV(csv) {
@@ -1365,9 +1559,30 @@ function renderRegistrations() {
   if(!tbody) return;
   if(!filtered.length) { tbody.innerHTML='<tr><td colspan="7" style="padding:24px 16px;color:var(--muted);font-size:14px;text-align:center;">No registrations for this game yet.</td></tr>'; return; }
 
+  var s = _cache || {};
+  function isScheduled(gameName, name) {
+    var gid = GAME_NAME_TO_ID[gameName];
+    if(!gid) return false;
+    var gs = s[gid] || {};
+    var entryName = (DUO_GAME_IDS.indexOf(gid)!==-1) ? name : name; // matched loosely below
+    var g = GAMES.find(function(x){ return x.id===gid; });
+    if(!g) return false;
+    if(g.format==='league') {
+      return (gs.players||[]).some(function(p){ return p.name && p.name.toLowerCase().indexOf(name.toLowerCase())!==-1; });
+    }
+    var brackets = gs.brackets || [];
+    return brackets.some(function(br){ return (br.rounds||[]).some(function(round){ return (round||[]).some(function(m){
+      return (m.p1&&m.p1.toLowerCase().indexOf(name.toLowerCase())!==-1) || (m.p2&&m.p2.toLowerCase().indexOf(name.toLowerCase())!==-1);
+    }); }); });
+  }
+
   tbody.innerHTML = filtered.map(function(r,i){
     var bg = i%2===0?'':'background:rgba(255,255,255,.02);';
-    function badge(g,teal){ return g&&g!=='None'?'<span style="background:'+(teal?'rgba(0,212,170,.12)':'rgba(255,255,255,.06)')+';color:'+(teal?'var(--teal)':'var(--silver)')+';font-size:11px;font-weight:600;padding:2px 8px;border-radius:3px;">'+esc(g)+'</span>':'<span style="color:var(--muted);font-size:12px;">—</span>'; }
+    function badge(g,teal){ return g&&g!=='None'?'<span style="background:'+(teal?'rgba(227,178,60,.12)':'rgba(255,255,255,.06)')+';color:'+(teal?'var(--teal)':'var(--silver)')+';font-size:11px;font-weight:600;padding:2px 8px;border-radius:3px;">'+esc(g)+'</span>':'<span style="color:var(--muted);font-size:12px;">—</span>'; }
+    var anyScheduled = [r.game1,r.game2,r.game3].some(function(g){ return g && g!=='None' && isScheduled(g, r.name); });
+    var actionCell = anyScheduled
+      ? '<span style="font-size:11px;font-weight:600;padding:4px 12px;background:rgba(227,178,60,.1);border:1px solid rgba(227,178,60,.3);border-radius:3px;color:var(--teal);">✓ Auto-scheduled</span>'
+      : '<button onclick="addPlayerFromReg(\''+r.name.replace(/'/g,"\\'")+'\')" style="font-size:11px;font-weight:600;padding:4px 12px;background:rgba(227,178,60,.1);border:1px solid rgba(227,178,60,.3);border-radius:3px;color:var(--teal);cursor:pointer;">+ Add to game</button>';
     return '<tr style="border-bottom:1px solid rgba(255,255,255,.04);'+bg+'">'
       +'<td style="padding:12px 16px;font-size:14px;font-weight:600;color:var(--white);">'+esc(r.name)+'</td>'
       +'<td style="padding:12px 16px;font-size:13px;color:var(--muted);">'+esc(r.dept)+'</td>'
@@ -1375,7 +1590,7 @@ function renderRegistrations() {
       +'<td style="padding:12px 16px;">'+badge(r.game2,false)+'</td>'
       +'<td style="padding:12px 16px;">'+badge(r.game3,false)+'</td>'
       +'<td style="padding:12px 16px;">'+(r.partner?'<span style="color:var(--amber);font-size:13px;">'+esc(r.partner)+'</span>':'<span style="color:var(--muted);font-size:12px;">—</span>')+'</td>'
-      +'<td style="padding:12px 16px;"><button onclick="addPlayerFromReg(\''+r.name.replace(/'/g,"\\'")+'\')" style="font-size:11px;font-weight:600;padding:4px 12px;background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.3);border-radius:3px;color:var(--teal);cursor:pointer;">+ Add to game</button></td>'
+      +'<td style="padding:12px 16px;">'+actionCell+'</td>'
       +'</tr>';
   }).join('');
 }
@@ -1449,7 +1664,7 @@ async function confirmAddPlayer(gid, name, day) {
   if(note) {
     note.innerHTML = playerConflict
       ? '<div style="font-size:12px;color:#fca5a5;background:rgba(127,29,29,.25);border:1px solid rgba(248,113,113,.3);border-radius:4px;padding:8px 12px;">⚠ '+esc(name)+' now has a conflict on '+esc(playerConflict.day)+': '+playerConflict.games.map(esc).join(' AND ')+'</div>'
-      : '<div style="font-size:12px;color:var(--teal);background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.2);border-radius:4px;padding:8px 12px;">✓ '+esc(name)+' added to '+g.name+' — no conflicts.</div>';
+      : '<div style="font-size:12px;color:var(--teal);background:rgba(227,178,60,.08);border:1px solid rgba(227,178,60,.2);border-radius:4px;padding:8px 12px;">✓ '+esc(name)+' added to '+g.name+' — no conflicts.</div>';
   }
 
   // refresh the game editor + registrations table underneath so it all reflects instantly
