@@ -273,28 +273,64 @@
 <!-- REGISTER -->
 <section class="section" id="tab-register">
   <div class="section-title">Register</div>
-  <p class="section-sub">Sign up for up to 3 games. Duo games require you to name your partner at registration.</p>
-  <div class="reg-steps">
-    <div class="reg-step"><div class="step-num">01</div><div class="step-text">Pick up to 3 games from the list</div></div>
-    <div class="reg-step"><div class="step-num">02</div><div class="step-text">For Duo games, name your partner</div></div>
-    <div class="reg-step"><div class="step-num">03</div><div class="step-text">Submit before the deadline</div></div>
-    <div class="reg-step"><div class="step-num">04</div><div class="step-text">Your lead confirms your slot</div></div>
+  <p class="section-sub">Pick a game below and you're placed instantly — no waiting on a lead to process a form. Everything here updates live for everyone.</p>
+
+  <!-- BOOK A SLOT (knockout games) -->
+  <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:24px;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--white);margin-bottom:4px;">🎯 Book a Match Slot</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">For Jenga, Chess, Darts, PS5, Playing Cards, Table Tennis. Pick an open slot and you're locked in immediately.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:16px;">
+      <div><label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:6px;">Your Name</label><input id="book-name" type="text" placeholder="Full name" style="width:100%;padding:10px 12px;background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;outline:none;"></div>
+      <div><label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:6px;">Department</label><input id="book-dept" type="text" placeholder="e.g. HR" style="width:100%;padding:10px 12px;background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;outline:none;"></div>
+      <div id="book-partner-wrap" style="display:none;"><label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:6px;">Duo Partner</label><input id="book-partner" type="text" placeholder="Partner's name" style="width:100%;padding:10px 12px;background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;outline:none;"></div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:6px;">Game</label>
+      <select id="book-game" onchange="renderSlotGrid()" style="width:100%;max-width:320px;background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;padding:10px 32px 10px 12px;outline:none;appearance:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9BB0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E&quot;);background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;">
+        <option value="">Loading games…</option>
+      </select>
+    </div>
+    <div id="slot-grid-wrap"></div>
+    <div id="book-msg" style="margin-top:14px;"></div>
   </div>
+
+  <!-- JOIN A LEAGUE (uno / ludo / sequence) -->
+  <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:24px;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--white);margin-bottom:4px;">🎴 Join a League</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">UNO, Ludo, Sequence run as a round-robin league — join the roster instantly, no fixed slot needed.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:16px;">
+      <div><label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:6px;">Your Name</label><input id="join-name" type="text" placeholder="Full name" style="width:100%;padding:10px 12px;background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;outline:none;"></div>
+      <div><label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:6px;">Department</label><input id="join-dept" type="text" placeholder="e.g. HR" style="width:100%;padding:10px 12px;background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;outline:none;"></div>
+      <div id="join-partner-wrap" style="display:none;"><label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:6px;">Duo Partner</label><input id="join-partner" type="text" placeholder="Partner's name" style="width:100%;padding:10px 12px;background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;outline:none;"></div>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;">
+      <div style="flex:1;min-width:200px;">
+        <label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:6px;">Game</label>
+        <select id="join-game" onchange="toggleJoinPartner()" style="width:100%;background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:14px;font-family:'Inter',sans-serif;padding:10px 32px 10px 12px;outline:none;appearance:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9BB0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E&quot;);background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;">
+          <option value="uno">🎴 UNO</option>
+          <option value="ludo">🎲 Ludo (Duo)</option>
+          <option value="sequence">🧩 Sequence (Duo)</option>
+        </select>
+      </div>
+      <button class="btn-primary" onclick="joinLeague()">Join Instantly →</button>
+    </div>
+    <div id="join-msg" style="margin-top:14px;"></div>
+  </div>
+
+  <ul class="rules-list" style="margin-bottom:24px;">
+    <li>Maximum 3 games per employee — no exceptions</li>
+    <li>PS5 Tekken and PS5 FIFA count as the same slot — pick one only</li>
+    <li>Duo games (Ludo, Sequence, Table Tennis) require a named partner</li>
+    <li>First-come, first-served — once a slot is taken it's gone</li>
+  </ul>
+
   <div class="reg-cta">
-    <h3>Ready to compete?</h3>
-    <p>Fill in the Microsoft Form below. Registrations close 24 hours before Day 1.</p>
-    <ul class="rules-list">
-      <li>Maximum 3 games per employee — no exceptions</li>
-      <li>PS5 Tekken and PS5 FIFA count as the same slot — pick one only</li>
-      <li>Duo games (Ludo, Sequence, TT) require a named partner</li>
-      <li>First-come, first-served — slots are capped per game</li>
-      <li>Dropouts after the draw = disqualification from future events</li>
-    </ul>
-    <br>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjuZmfdyqUyKm_JtDHWaUjoZtRfdWGbhRooHtcB2orkMr7cQ/viewform" class="btn-primary" target="_blank" style="font-size:15px;padding:16px 40px;">Open Registration Form →</a>
-    <p style="margin-top:16px;font-size:12px;color:var(--muted);">Form opens in Microsoft Forms. Responses are tracked automatically by the HR team.</p>
+    <h3>Prefer a form?</h3>
+    <p>The instant booking above is the fastest way in — but if you'd rather fill in a form, this backup still works and leads will place you manually.</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjuZmfdyqUyKm_JtDHWaUjoZtRfdWGbhRooHtcB2orkMr7cQ/viewform?usp=dialog" class="btn-secondary" target="_blank" style="font-size:14px;">Open Backup Form →</a>
   </div>
 </section>
+
 
 <!-- SCHEDULE -->
 <section class="section" id="tab-schedule">
@@ -566,6 +602,7 @@ function startPolling() {
     var id = activeTab ? activeTab.id : '';
     if(id==='tab-standings' || id==='tab-leaderboard') renderPublic(_cache);
     if(id==='tab-schedule') renderSchedule();
+    if(id==='tab-register') renderSlotGrid();
     if(id==='tab-admin' && authed) runConflictCheck(_cache);
   }, 6000);
 }
@@ -582,7 +619,8 @@ async function switchTab(name) {
   var s = await loadState();
   if(name==="standings"||name==="leaderboard") renderPublic(s);
   if(name==="schedule") renderSchedule();
-  if(name==="standings"||name==="leaderboard"||name==="schedule"||name==="games") startPolling();
+  if(name==="register") { await populateBookGameDropdown(); }
+  if(name==="standings"||name==="leaderboard"||name==="schedule"||name==="games"||name==="register") startPolling();
   else if(name==="admin") stopPolling();
 }
 
@@ -724,6 +762,93 @@ async function delPlayer(gid, idx) {
 var MULTI_BRACKET_GAMES = ['ps5tekken','ps5fifa','tt','darts'];
 var ROUND_NAMES = ['Round 1','Round 2','Quarter-Finals','Semi-Finals'];
 var DAY_LABELS  = ['Day 1','Day 2','Day 3','Day 4','Day 5'];
+var SLOT_DURATIONS = [10, 15, 20, 30];
+
+// Lead-facing config: which days, what time window, what slot length.
+// This is what public "Book a Slot" reads to generate the live grid.
+function buildSlotConfigEditor(g, gs) {
+  var cfg = gs.slotConfig || {};
+  var days = cfg.days || [];
+  var duration = cfg.duration || 15;
+  var start = cfg.start !== undefined ? cfg.start : (15*60);
+  var end = cfg.end !== undefined ? cfg.end : (18*60);
+  var enabled = !!cfg.enabled;
+
+  var dayChecks = DAY_LABELS.map(function(d){
+    var checked = days.indexOf(d)!==-1;
+    return '<label style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--silver);margin-right:14px;cursor:pointer;">'
+      +'<input type="checkbox" '+(checked?'checked':'')+' onchange="toggleSlotDay(\''+g.id+'\',\''+d+'\')"> '+d+'</label>';
+  }).join('');
+
+  var startOpts = ALL_TIMES.map(function(t){ return '<option value="'+t+'"'+(t===start?' selected':'')+'>'+fmtTime(t)+'</option>'; }).join('');
+  var endOpts = ALL_TIMES.map(function(t){ return '<option value="'+t+'"'+(t===end?' selected':'')+'>'+fmtTime(t)+'</option>'; }).join('');
+  var durOpts = SLOT_DURATIONS.map(function(d){ return '<option value="'+d+'"'+(d===duration?' selected':'')+'>'+d+' min</option>'; }).join('');
+
+  var slotCount = enabled ? getSlotList(g.id, _cache||{}).length : 0;
+
+  return '<div class="admin-section-label">⏱ Slot Setup — powers live public booking</div>'
+    +'<div style="background:rgba(255,255,255,.03);border:1px solid var(--border-solid);border-radius:6px;padding:14px 16px;margin-bottom:16px;">'
+    +'<label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--white);font-weight:600;margin-bottom:12px;cursor:pointer;"><input type="checkbox" '+(enabled?'checked':'')+' onchange="updateSlotConfig(\''+g.id+'\',\'enabled\',this.checked)"> Open live slot booking for this game</label>'
+    +'<div style="font-size:11px;color:var(--muted);margin-bottom:6px;">Days available</div>'
+    +'<div style="margin-bottom:14px;">'+dayChecks+'</div>'
+    +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;">'
+    +'<div><div style="font-size:11px;color:var(--muted);margin-bottom:6px;">Start</div><select onchange="updateSlotConfig(\''+g.id+'\',\'start\',parseInt(this.value))" style="width:100%;background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:13px;padding:7px 10px;outline:none;">'+startOpts+'</select></div>'
+    +'<div><div style="font-size:11px;color:var(--muted);margin-bottom:6px;">End</div><select onchange="updateSlotConfig(\''+g.id+'\',\'end\',parseInt(this.value))" style="width:100%;background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:13px;padding:7px 10px;outline:none;">'+endOpts+'</select></div>'
+    +'<div><div style="font-size:11px;color:var(--muted);margin-bottom:6px;">Slot Duration</div><select onchange="updateSlotConfig(\''+g.id+'\',\'duration\',parseInt(this.value))" style="width:100%;background:var(--navy2);border:1px solid var(--border-solid);border-radius:4px;color:var(--white);font-size:13px;padding:7px 10px;outline:none;">'+durOpts+'</select></div>'
+    +'</div>'
+    +'<div style="margin-top:12px;font-size:12px;color:var(--teal);">'+(enabled ? '✓ '+slotCount+' slot'+(slotCount!==1?'s':'')+' live on the Register tab right now.' : 'Booking is off — turn it on once days/times are final.')+'</div>'
+    +'</div>';
+}
+
+function updateSlotConfig(gid, key, val) {
+  var s = _cache || {};
+  if(!s[gid]) s[gid]={};
+  if(!s[gid].slotConfig) s[gid].slotConfig={enabled:false, days:[], start:15*60, end:18*60, duration:15};
+  s[gid].slotConfig[key] = val;
+  saveState(s);
+  buildAdminPanel();
+  var body = document.getElementById('body-'+gid); if(body) body.classList.add('open');
+  var arrow = document.getElementById('arrow-'+gid); if(arrow) arrow.textContent='⌄';
+}
+
+function toggleSlotDay(gid, day) {
+  var s = _cache || {};
+  if(!s[gid]) s[gid]={};
+  if(!s[gid].slotConfig) s[gid].slotConfig={enabled:false, days:[], start:15*60, end:18*60, duration:15};
+  var days = s[gid].slotConfig.days || [];
+  var idx = days.indexOf(day);
+  if(idx===-1) days.push(day); else days.splice(idx,1);
+  s[gid].slotConfig.days = days;
+  saveState(s);
+  buildAdminPanel();
+  var body = document.getElementById('body-'+gid); if(body) body.classList.add('open');
+  var arrow = document.getElementById('arrow-'+gid); if(arrow) arrow.textContent='⌄';
+}
+
+// Computes the live slot grid for a game: every (day, time) combo from its
+// slotConfig, with status open / half (one seat taken) / full (two taken).
+function getSlotList(gid, s) {
+  var gs = s[gid] || {};
+  var cfg = gs.slotConfig;
+  if(!cfg || !cfg.enabled || !cfg.days || !cfg.days.length) return [];
+  var br = (gs.brackets && gs.brackets[0]) || {rounds:[]};
+  var round0 = (br.rounds && br.rounds[0]) || [];
+
+  var slots = [];
+  cfg.days.forEach(function(day){
+    for(var t = cfg.start; t < cfg.end; t += cfg.duration) {
+      var match = round0.find(function(m){ return m.day===day && m.time===t; });
+      var status = 'open';
+      var occupant = '';
+      if(match) {
+        if(match.p1 && match.p2) status = 'full';
+        else if(match.p1 || match.p2) { status = 'half'; occupant = match.p1 || match.p2; }
+      }
+      slots.push({ day:day, time:t, timeLabel: fmtTime(t), status: status, occupant: occupant });
+    }
+  });
+  return slots;
+}
 
 // active bracket tab per game
 var activeBracket = {};
@@ -735,7 +860,8 @@ function buildKnockoutEditor(g, gs) {
   var rulesHtml = '<div class="admin-section-label">📄 Rules Document</div>'
     +'<div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;"><input style="flex:1;background:rgba(255,255,255,.05);border:1px solid var(--border-solid);border-radius:3px;color:var(--white);font-size:13px;font-family:Inter,sans-serif;padding:7px 12px;outline:none;" placeholder="Paste Google Drive / OneDrive link to rules PDF" value="'+esc(rulesUrl2)+'" oninput="updateRules(\''+g.id+'\',this.value)">'
     +(rulesUrl2?'<a href="'+esc(rulesUrl2)+'" target="_blank" style="font-size:12px;color:var(--teal);white-space:nowrap;">View →</a>':'')
-    +'</div>';
+    +'</div>'
+    + buildSlotConfigEditor(g, gs);
 
   // ensure activeBracket initialised
   if(activeBracket[g.id] === undefined) activeBracket[g.id] = 0;
@@ -1288,7 +1414,7 @@ var LEAGUE_MD_DAY = {
 
 function buildRealMatchesForDay(dayLabel) {
   var s = _cache || {};
-  var rowsHtml = '';
+  var entries = [];
 
   GAMES.forEach(function(g){
     var gs = s[g.id]||{};
@@ -1298,11 +1424,14 @@ function buildRealMatchesForDay(dayLabel) {
         (br.rounds||[]).forEach(function(round, ri){
           (round||[]).forEach(function(m){
             if((m.day||'Day 1')===dayLabel && (m.p1 || m.p2)) {
-              rowsHtml += '<div style="display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px;">'
-                +'<span style="color:var(--white);font-weight:600;">'+g.emoji+' '+g.name+(br.name&&br.name!=='Bracket A'?' — '+esc(br.name):'')+'</span>'
-                +'<span style="color:var(--silver);">'+esc(m.p1||'TBD')+' vs '+esc(m.p2||'TBD')+'</span>'
-                +'<span style="color:var(--muted);font-size:12px;">'+(ROUND_NAMES[ri]||'Round '+(ri+1))+'</span>'
-                +'</div>';
+              entries.push({
+                time: (m.time!==undefined ? m.time : 99999),
+                html: '<div style="display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px;">'
+                  +'<span style="color:var(--white);font-weight:600;">'+g.emoji+' '+g.name+(br.name&&br.name!=='Bracket A'?' — '+esc(br.name):'')+'</span>'
+                  +'<span style="color:var(--silver);">'+esc(m.p1||'TBD')+' vs '+esc(m.p2||'TBD')+'</span>'
+                  +'<span style="color:var(--muted);font-size:12px;">'+(m.time!==undefined?fmtTime(m.time)+' · ':'')+(ROUND_NAMES[ri]||'Round '+(ri+1))+'</span>'
+                  +'</div>'
+              });
             }
           });
         });
@@ -1314,14 +1443,20 @@ function buildRealMatchesForDay(dayLabel) {
       if(!mdKey) return;
       var players = (gs.players||[]).filter(function(p){ return p.name; });
       if(players.length) {
-        rowsHtml += '<div style="display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px;">'
-          +'<span style="color:var(--white);font-weight:600;">'+g.emoji+' '+g.name+'</span>'
-          +'<span style="color:var(--silver);">'+players.map(function(p){ return esc(p.name); }).join(', ')+'</span>'
-          +'<span style="color:var(--muted);font-size:12px;">League '+mdKey.toUpperCase()+'</span>'
-          +'</div>';
+        entries.push({
+          time: -1,
+          html: '<div style="display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px;">'
+            +'<span style="color:var(--white);font-weight:600;">'+g.emoji+' '+g.name+'</span>'
+            +'<span style="color:var(--silver);">'+players.map(function(p){ return esc(p.name); }).join(', ')+'</span>'
+            +'<span style="color:var(--muted);font-size:12px;">League '+mdKey.toUpperCase()+'</span>'
+            +'</div>'
+        });
       }
     }
   });
+
+  entries.sort(function(a,b){ return a.time-b.time; });
+  var rowsHtml = entries.map(function(e){ return e.html; }).join('');
 
   return rowsHtml || null;
 }
@@ -1678,6 +1813,149 @@ async function confirmAddPlayer(gid, name, day) {
 
   // Auto-close the modal shortly after showing the conflict result, so leads can keep moving
   setTimeout(function(){ var m=document.getElementById('add-player-modal'); if(m) m.remove(); }, playerConflict ? 2600 : 1200);
+}
+
+// ── LIVE SLOT BOOKING (public Register tab) ──────────────────────────────────
+var DUO_KNOCKOUT = ['tt'];
+var KNOCKOUT_GAME_IDS = GAMES.filter(function(g){ return g.format==='knockout'; }).map(function(g){ return g.id; });
+
+function countPlayerGames(name, s) {
+  if(!name) return 0;
+  var n = name.trim().toLowerCase();
+  var count = 0;
+  GAMES.forEach(function(g){
+    var gs = s[g.id]||{};
+    if(g.format==='league') {
+      if((gs.players||[]).some(function(p){ return p.name && p.name.toLowerCase().indexOf(n)!==-1; })) count++;
+    } else {
+      var brackets = gs.brackets||[];
+      if(brackets.some(function(br){ return (br.rounds||[]).some(function(round){ return (round||[]).some(function(m){
+        return (m.p1&&m.p1.toLowerCase().indexOf(n)!==-1) || (m.p2&&m.p2.toLowerCase().indexOf(n)!==-1);
+      }); }); })) count++;
+    }
+  });
+  return count;
+}
+
+async function populateBookGameDropdown() {
+  var s = await loadState();
+  var sel = document.getElementById('book-game');
+  if(!sel) return;
+  var open = KNOCKOUT_GAME_IDS.filter(function(gid){ var cfg=(s[gid]||{}).slotConfig; return cfg && cfg.enabled && cfg.days && cfg.days.length; });
+  if(!open.length) {
+    sel.innerHTML = '<option value="">No games open for booking yet — check back soon</option>';
+    document.getElementById('slot-grid-wrap').innerHTML = '';
+    return;
+  }
+  var prev = sel.value;
+  sel.innerHTML = open.map(function(gid){
+    var g = GAMES.find(function(x){ return x.id===gid; });
+    return '<option value="'+gid+'">'+g.emoji+' '+g.name+'</option>';
+  }).join('');
+  if(open.indexOf(prev)!==-1) sel.value = prev;
+  document.getElementById('book-partner-wrap').style.display = DUO_KNOCKOUT.indexOf(sel.value)!==-1 ? 'block' : 'none';
+  renderSlotGrid();
+}
+
+async function renderSlotGrid() {
+  var s = await loadState();
+  var gid = document.getElementById('book-game').value;
+  var wrap = document.getElementById('slot-grid-wrap');
+  if(!wrap) return;
+  document.getElementById('book-partner-wrap').style.display = DUO_KNOCKOUT.indexOf(gid)!==-1 ? 'block' : 'none';
+  if(!gid) { wrap.innerHTML=''; return; }
+  var g = GAMES.find(function(x){ return x.id===gid; });
+  var cfg = (s[gid]||{}).slotConfig || {};
+  var slots = getSlotList(gid, s);
+  if(!slots.length) { wrap.innerHTML = '<p style="font-size:13px;color:var(--muted);">No slots configured for this game yet.</p>'; return; }
+
+  var byDay = {};
+  slots.forEach(function(sl){ if(!byDay[sl.day]) byDay[sl.day]=[]; byDay[sl.day].push(sl); });
+
+  var html = '<div style="font-size:12px;color:var(--muted);margin-bottom:10px;">'+cfg.duration+'-minute slots · click an open slot to lock it in instantly</div>';
+  Object.keys(byDay).forEach(function(day){
+    html += '<div class="match-day-label" style="margin-top:10px;">'+day+'</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;">';
+    byDay[day].forEach(function(sl){
+      var isFull = sl.status==='full';
+      var isHalf = sl.status==='half';
+      var bg = isFull ? 'rgba(255,255,255,.03)' : isHalf ? 'rgba(217,59,74,.1)' : 'rgba(227,178,60,.08)';
+      var border = isFull ? 'var(--border-solid)' : isHalf ? 'rgba(217,59,74,.4)' : 'rgba(227,178,60,.4)';
+      var color = isFull ? 'var(--muted)' : isHalf ? 'var(--amber)' : 'var(--teal)';
+      var label = isFull ? sl.timeLabel+' · Full' : isHalf ? sl.timeLabel+' · vs '+esc(sl.occupant) : sl.timeLabel+' · Open';
+      html += '<button '+(isFull?'disabled':'onclick="bookSlot(\''+gid+'\',\''+day+'\','+sl.time+')"')+' style="padding:8px 14px;background:'+bg+';border:1px solid '+border+';border-radius:4px;color:'+color+';font-size:12px;font-weight:600;cursor:'+(isFull?'not-allowed':'pointer')+';font-family:\'Inter\',sans-serif;">'+label+'</button>';
+    });
+    html += '</div>';
+  });
+  wrap.innerHTML = html;
+}
+
+async function bookSlot(gid, day, time) {
+  var name = (document.getElementById('book-name').value||'').trim();
+  var dept = (document.getElementById('book-dept').value||'').trim();
+  var partner = (document.getElementById('book-partner').value||'').trim();
+  var msg = document.getElementById('book-msg');
+  var g = GAMES.find(function(x){ return x.id===gid; });
+
+  if(!name) { msg.innerHTML = '<div style="color:var(--amber);font-size:13px;">Enter your name first.</div>'; return; }
+  if(DUO_KNOCKOUT.indexOf(gid)!==-1 && !partner) { msg.innerHTML = '<div style="color:var(--amber);font-size:13px;">This is a duo game — enter your partner\'s name.</div>'; return; }
+
+  var s = await loadState(); // fetch freshest state right before booking to minimize double-booking races
+  if(countPlayerGames(name, s) >= 3) { msg.innerHTML = '<div style="color:var(--amber);font-size:13px;">'+esc(name)+' is already in 3 games — that\'s the max.</div>'; return; }
+
+  var entryName = (DUO_KNOCKOUT.indexOf(gid)!==-1 && partner) ? (name+' & '+partner) : name;
+  if(!s[gid]) s[gid]={};
+  if(!s[gid].brackets) s[gid].brackets=[{name:'Bracket A', rounds:[]}];
+  var br = s[gid].brackets[0];
+  if(!br.rounds) br.rounds=[];
+  if(!br.rounds[0]) br.rounds[0]=[];
+  var match = br.rounds[0].find(function(m){ return m.day===day && m.time===time; });
+
+  if(match && match.p1 && match.p2) {
+    msg.innerHTML = '<div style="color:var(--amber);font-size:13px;">Someone just took that slot — pick another.</div>';
+    renderSlotGrid();
+    return;
+  }
+  if(match) {
+    if(!match.p1) match.p1 = entryName; else match.p2 = entryName;
+  } else {
+    br.rounds[0].push({p1:entryName, p2:'', winner:'', day:day, time:time});
+  }
+  saveState(s);
+  msg.innerHTML = '<div style="color:var(--teal);font-size:13px;background:rgba(227,178,60,.08);border:1px solid rgba(227,178,60,.2);border-radius:4px;padding:10px 14px;">✓ '+esc(entryName)+' locked into '+g.emoji+' '+g.name+' — '+day+' at '+fmtTime(time)+(match&&match.p1&&match.p1!==entryName?', facing '+esc(match.p1):'')+'. This is live on the Schedule tab now.</div>';
+  document.getElementById('book-name').value=''; document.getElementById('book-partner').value='';
+  renderSlotGrid();
+  renderRegisteredCount(s);
+}
+
+function toggleJoinPartner() {
+  var gid = document.getElementById('join-game').value;
+  document.getElementById('join-partner-wrap').style.display = (gid==='ludo'||gid==='sequence') ? 'block' : 'none';
+}
+
+async function joinLeague() {
+  var name = (document.getElementById('join-name').value||'').trim();
+  var dept = (document.getElementById('join-dept').value||'').trim();
+  var gid = document.getElementById('join-game').value;
+  var partner = (document.getElementById('join-partner').value||'').trim();
+  var msg = document.getElementById('join-msg');
+  var g = GAMES.find(function(x){ return x.id===gid; });
+
+  if(!name) { msg.innerHTML = '<div style="color:var(--amber);font-size:13px;">Enter your name first.</div>'; return; }
+  if((gid==='ludo'||gid==='sequence') && !partner) { msg.innerHTML = '<div style="color:var(--amber);font-size:13px;">This is a duo game — enter your partner\'s name.</div>'; return; }
+
+  var s = await loadState();
+  if(countPlayerGames(name, s) >= 3) { msg.innerHTML = '<div style="color:var(--amber);font-size:13px;">'+esc(name)+' is already in 3 games — that\'s the max.</div>'; return; }
+
+  var entryName = (gid==='ludo'||gid==='sequence') ? (name+' & '+partner) : name;
+  if(!s[gid]) s[gid]={};
+  if(!s[gid].players) s[gid].players=[];
+  var exists = s[gid].players.some(function(p){ return p.name && p.name.toLowerCase()===entryName.toLowerCase(); });
+  if(exists) { msg.innerHTML = '<div style="color:var(--amber);font-size:13px;">Already on the '+g.name+' roster.</div>'; return; }
+  s[gid].players.push({name:entryName, md1:'—', md2:'—', md3:'—'});
+  saveState(s);
+  msg.innerHTML = '<div style="color:var(--teal);font-size:13px;background:rgba(227,178,60,.08);border:1px solid rgba(227,178,60,.2);border-radius:4px;padding:10px 14px;">✓ '+esc(entryName)+' added to the '+g.emoji+' '+g.name+' roster — live on Standings now.</div>';
+  document.getElementById('join-name').value=''; document.getElementById('join-partner').value='';
+  renderRegisteredCount(s);
 }
 
 // ── Init
